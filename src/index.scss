@@ -1,0 +1,17 @@
+@import '@fontsource/poppins';
+@import './theme.scss';
+@import './utils.scss';
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  font-family: 'Poppins';
+  height: 100%;
+  overflow: hidden;
+}

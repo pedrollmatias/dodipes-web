@@ -1,0 +1,8 @@
+@import '../../../styles-variables.scss';
+
+.sidebar {
+  padding: 50px;
+  width: 400px;
+  height: 100%;
+  border-right: 1px solid $light-grey;
+}
