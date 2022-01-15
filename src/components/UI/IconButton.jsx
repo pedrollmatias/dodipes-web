@@ -4,8 +4,8 @@ import classes from "./IconButton.module.scss";
 
 const sizeIconEnum = {
   sm: 23,
-  md: 30,
-  lg: 40,
+  md: 25,
+  lg: 30,
 };
 
 const IconButton = ({

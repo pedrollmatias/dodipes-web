@@ -1,6 +1,6 @@
-const SectionTitle = ({ children }) => {
+const SectionTitle = ({ children, marginBottom = "mb-5" }) => {
   return (
-    <h5 className="mb-5">
+    <h5 className={marginBottom}>
       <strong>{children}</strong>
     </h5>
   );

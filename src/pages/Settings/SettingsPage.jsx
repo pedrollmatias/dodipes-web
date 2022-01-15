@@ -1,6 +1,8 @@
 import Container from "react-bootstrap/Container";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
+import StoreDataTab from "./StoreDataTab/StoreDataTab";
+import VisualIdentityTab from "./VisualIdentityTab/VisualIdentityTab";
 
 const Settings = () => {
   return (
@@ -8,18 +10,22 @@ const Settings = () => {
       <Tabs
         fill
         justify
-        defaultActiveKey="profile"
-        id="uncontrolled-tab-example"
+        defaultActiveKey="store-data"
+        id="settings-tab"
         className="mb-3"
       >
         <Tab eventKey="store-data" title="Dados do estabelecimento">
-          Teste 1
+          <div className="pt-3 pb-5">
+            <StoreDataTab />
+          </div>
         </Tab>
         <Tab eventKey="visual-id" title="Identidade visual">
-          Teste 2222
+          <div className="pt-3 pb-5">
+            <VisualIdentityTab />
+          </div>
         </Tab>
         <Tab eventKey="preferences" title="Preferências">
-          Teste 333333333333
+          <div className="pt-3 pb-5">{/* <StoreDataTab /> */}</div>
         </Tab>
       </Tabs>
     </Container>
