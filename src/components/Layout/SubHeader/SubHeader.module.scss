@@ -1,7 +1,7 @@
 @import '../../../styles-variables.scss';
 
 .sub-header {
-  height: 70px;
+  min-height: 70px;
   width: 100%;
   background-color: $light-grey;
 }

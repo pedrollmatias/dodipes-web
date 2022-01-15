@@ -13,7 +13,7 @@ const Layout = () => {
       <div className={`${classes.layout} d-flex flex-column`}>
         <Header />
         <SubHeader />
-        <div className="d-flex flex-grow-1">
+        <div className="d-flex flex-grow-1 overflow-auto">
           <Sidebar />
           <Content>
             <Outlet />

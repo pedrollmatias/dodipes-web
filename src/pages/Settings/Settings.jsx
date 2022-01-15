@@ -4,7 +4,7 @@ import Tab from "react-bootstrap/Tab";
 
 const Settings = () => {
   return (
-    <Container className="py-5 h-100">
+    <Container className="py-5">
       <Tabs
         fill
         justify

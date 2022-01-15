@@ -10,12 +10,12 @@ const sizeIconEnum = {
 
 const IconButton = ({
   icon: Icon,
-  onClick,
+  onClick = () => {},
   variant = "light",
-  type,
+  type = "button",
   size = "md",
 }) => {
-  console.log(size)
+  console.log(size);
   return (
     <Button
       className={`${classes["btn--icon"]} ${classes[variant]} ${classes[size]}`}

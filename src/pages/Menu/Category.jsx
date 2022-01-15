@@ -18,10 +18,10 @@ const categoryItems = [
 const Category = ({ name }) => {
   return (
     <>
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center mb-3">
         <h5 className="me-4">{name}</h5>
 
-        <div className="me-3">
+        <div className="me-2">
           <IconButton icon={FiEdit} size="sm" />
         </div>
 
