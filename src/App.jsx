@@ -1,12 +1,11 @@
-// import AppRouter from './components/Router/AppRouter';
-// import routes from './components/Router/routes.config';
+import { BrowserRouter as Router } from "react-router-dom";
 
-import Layout from "./components/Layout/Layout";
+import AppRoutes from "./components/Routes/Routes";
 
 const App = () => (
-  <main>
-    <Layout />
-  </main>
+  <Router>
+    <AppRoutes />
+  </Router>
 );
 
 export default App;

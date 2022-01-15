@@ -1,7 +1,5 @@
-import Container from "react-bootstrap/Container";
-
-const Content = () => {
-  return <Container className="overflow-auto flex-grow-1 py-5">teste</Container>;
+const Content = ({ children }) => {
+  return <div className="flex-grow-1 overflow-auto">{children}</div>;
 };
 
 export default Content;

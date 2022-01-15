@@ -1,21 +1,28 @@
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
 
-import classes from './IconButton.module.scss';
+import classes from "./IconButton.module.scss";
 
-const enumSize = {
-  sm: '1rem',
-  md: '1.4rem',
-  lg: '2.1rem',
+const sizeIconEnum = {
+  sm: 23,
+  md: 30,
+  lg: 40,
 };
 
-const IconButton = ({ className = '', variant = 'light', size = 'md', icon: Icon, onClick = () => {} }) => {
+const IconButton = ({
+  icon: Icon,
+  onClick,
+  variant = "light",
+  type,
+  size = "md",
+}) => {
+  console.log(size)
   return (
     <Button
-      variant={variant}
-      className={`${classes['icon-btn']} ${classes[`icon-btn--${size}`]} ${className}`}
+      className={`${classes["btn--icon"]} ${classes[variant]} ${classes[size]}`}
       onClick={onClick}
+      type={type}
     >
-      <Icon size={enumSize[size]} />
+      <Icon size={sizeIconEnum[size]} />
     </Button>
   );
 };

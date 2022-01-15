@@ -7,37 +7,37 @@ import MenuItem from "./MenuItem";
 const menu = [
   {
     label: "Dashboard",
-    link: "/",
+    link: "dashboard",
     icon: FiGrid,
   },
   {
     label: "Pedidos",
-    link: "/",
+    link: "orders",
     icon: FiTrello,
   },
   {
     label: "Configurações",
-    link: "/",
+    link: "settings",
     icon: IoSettingsOutline,
   },
   {
     label: "Cardápio",
-    link: "/",
+    link: "menu",
     icon: FiMap,
   },
   {
     label: "Mesas & QR Codes",
-    link: "/",
+    link: "seats-qr-codes",
     icon: IoQrCodeOutline,
   },
   {
     label: "Usuários",
-    link: "/",
+    link: "users",
     icon: FiUsers,
   },
   {
     label: "Painel Token",
-    link: "/",
+    link: "token-panel",
     icon: MdDesktopWindows,
   },
 ];
