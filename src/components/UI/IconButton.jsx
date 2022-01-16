@@ -15,7 +15,6 @@ const IconButton = ({
   type = "button",
   size = "md",
 }) => {
-  console.log(size);
   return (
     <Button
       className={`${classes["btn--icon"]} ${classes[variant]} ${classes[size]}`}

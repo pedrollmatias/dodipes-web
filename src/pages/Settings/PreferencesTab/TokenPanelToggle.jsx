@@ -17,7 +17,7 @@ const TokenPanelToggle = () => {
             </strong>
           </span>
 
-          <p class="text-muted">
+          <p className="text-muted">
             Para os clientes confirmarem o pedido, é necessário informar um
             Token, informado presencialmente no estabelecimento. Isso evita que
             pessoas fora do local realizem pedidos. Deve haver no
