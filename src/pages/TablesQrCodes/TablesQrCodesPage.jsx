@@ -8,6 +8,7 @@ import SectionTitle from "../../components/UI/SectionTitle";
 import IconLabelButton from "../../components/UI/IconLabelButton";
 import TablesTable from "./TablesTable";
 import AddTableModal from "./AddTableModal";
+import QrCodeDownloadModal from "./QrCodeDownloadModal";
 
 const ActionButtons = () => {
   const [isIntervalModal, setIsIntervalModal] = useState(false);
@@ -18,6 +19,11 @@ const ActionButtons = () => {
     setIsIntervalModal(isInterval);
   };
   const handleAddTableModalHide = () => setAddTableModalShow(false);
+
+  const [qrCodeDownloadModalShow, setQrCodeDownloadModalShow] = useState(false);
+
+  const handleQrCodeDownloadModalShow = () => setQrCodeDownloadModalShow(true);
+  const handleQrCodeDownloadModalHide = () => setQrCodeDownloadModalShow(false);
 
   return (
     <>
@@ -40,13 +46,19 @@ const ActionButtons = () => {
       <IconLabelButton
         icon={FiDownloadCloud}
         label="Download QR Codes"
-        disabled={true}
+        onClick={handleQrCodeDownloadModalShow}
       />
 
       <AddTableModal
         show={addTableModalShow}
         onHide={handleAddTableModalHide}
         isInterval={isIntervalModal}
+      />
+
+      <QrCodeDownloadModal
+        show={qrCodeDownloadModalShow}
+        onHide={handleQrCodeDownloadModalHide}
+        isMultiTables={true}
       />
     </>
   );
