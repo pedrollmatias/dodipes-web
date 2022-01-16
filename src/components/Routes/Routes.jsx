@@ -6,6 +6,7 @@ import SettingsPage from "../../pages/Settings/SettingsPage";
 import HomePage from "../../pages/Home/HomePage";
 import OrdersPage from "../../pages/Orders/OrdersPage";
 import MenuPage from "../../pages/Menu/MenuPage";
+import TablesQrCodes from "../../pages/TablesQrCodes/TablesQrCodesPage";
 
 const AppRoutes = () => (
   <Routes>
@@ -14,6 +15,7 @@ const AppRoutes = () => (
       <Route path="orders" element={<OrdersPage />} />
       <Route path="settings" element={<SettingsPage />} />
       <Route path="menu" element={<MenuPage />} />
+      <Route path="tables-qrcodes" element={<TablesQrCodes />} />
     </Route>
   </Routes>
 );

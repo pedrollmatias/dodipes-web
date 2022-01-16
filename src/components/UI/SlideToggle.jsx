@@ -6,7 +6,7 @@ const SlideToggle = ({ checked = false, label }) => {
   return (
     <>
       <label className={classes.switch}>
-        <Form.Control type="checkbox"/>
+        <Form.Control type="checkbox" defaultChecked={checked}/>
         <span className={`${classes.slider}`}></span>
       </label>
       {label && <span className="ms-2">{label}</span>}

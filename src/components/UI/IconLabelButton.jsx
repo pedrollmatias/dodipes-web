@@ -7,12 +7,14 @@ const IconLabelButton = ({
   iconMargin = "me-3",
   variant = "primary",
   onClick = () => {},
+  disabled = false
 }) => {
   return (
     <Button
       variant={variant}
       className={className}
       onClick={onClick}
+      disabled={disabled}
     >
       <Icon className={iconMargin} size={30} />
       <span>{label}</span>

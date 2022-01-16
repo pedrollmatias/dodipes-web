@@ -27,7 +27,7 @@ const menu = [
   },
   {
     label: "Mesas & QR Codes",
-    link: "seats-qr-codes",
+    link: "tables-qrcodes",
     icon: IoQrCodeOutline,
   },
   {
