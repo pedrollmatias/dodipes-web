@@ -11,7 +11,7 @@ import ChangeAdminModal from "./ChangeAdminModal/ChangeAdminModal";
 
 const AdminTag = () => {
   return (
-    <div className="d-flex align-items-center">
+    <div className="d-flex align-items-center text-danger">
       <div className="me-3">
         <RiAdminFill size={30} />
       </div>
