@@ -59,12 +59,12 @@ const ItemActions = () => {
 
 const CategoryItemCard = ({ name, description, img, active, price }) => {
   return (
-    <Card className="">
+    <Card>
       <div className="row align-items-center">
-        <div className="col-md-2">
+        <div className="col-md-3">
           <ItemImg />
         </div>
-        <div className="col-md-4 py-4">
+        <div className="col-md-3 py-4">
           <ItemInfo name={name} description={description} />
         </div>
         <div className="col-md-2 d-flex justify-content-center py-4">

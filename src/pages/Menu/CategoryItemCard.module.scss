@@ -1,4 +1,8 @@
+@import "../../styles-variables.scss";
+
 .img--item {
-  height: 170px;
-  width: auto;
+  height: auto;
+  width: 100%;
+  border-top-left-radius: $card-border-radius;
+  border-bottom-left-radius: $card-border-radius;
 }

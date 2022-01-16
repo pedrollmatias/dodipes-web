@@ -1,0 +1,13 @@
+@import "../../styles-variables.scss";
+
+.user-avatar {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: $light-grey;
+
+  &.selected {
+    background-color: $primary;
+    color: $white;
+  }
+}

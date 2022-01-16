@@ -7,7 +7,9 @@ const IconLabelButton = ({
   iconMargin = "me-3",
   variant = "primary",
   onClick = () => {},
-  disabled = false
+  disabled = false,
+  size,
+  iconSize = 30,
 }) => {
   return (
     <Button
@@ -15,8 +17,9 @@ const IconLabelButton = ({
       className={className}
       onClick={onClick}
       disabled={disabled}
+      size={size}
     >
-      <Icon className={iconMargin} size={30} />
+      <Icon className={iconMargin} size={iconSize} />
       <span>{label}</span>
     </Button>
   );

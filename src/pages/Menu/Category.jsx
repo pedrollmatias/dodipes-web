@@ -17,6 +17,13 @@ const categoryItems = [
     active: true,
     price: 7990,
   },
+  {
+    name: "Filé com Fritas",
+    description: "300g de picanha maturada e 500g de fritas",
+    img: "aaa",
+    active: true,
+    price: 7990,
+  },
 ];
 
 const Category = ({ name }) => {
@@ -45,7 +52,7 @@ const Category = ({ name }) => {
 
       <div className="mb-3">
         {categoryItems.map((categoryItem) => (
-          <div key={name} className="pb-2">
+          <div key={name} className="mb-3">
             <CategoryItemCard {...categoryItem} />
           </div>
         ))}
