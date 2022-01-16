@@ -1,4 +1,9 @@
+@import "../../styles-variables.scss";
+
 .card--list {
-  width: 250px;
-  height: 100%;
+  overflow: hidden;
+
+  .card--list-header {
+    background-color: $light-grey;
+  }
 }

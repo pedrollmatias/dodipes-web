@@ -3,6 +3,8 @@ import Card from "react-bootstrap/Card";
 import Divider from "../../components/UI/Divider";
 import OrderCard from "./OrderCard";
 
+import classes from "./ListCard.module.scss";
+
 const orders = [
   {
     title: "Filé com fritas",
@@ -26,13 +28,10 @@ const orders = [
 const ListCardHeader = ({ title }) => {
   return (
     <>
-      <div className="p-3 w-100">
+      <div className={`${classes["card--list-header"]} px-3 py-2 w-100`}>
         <h5 className="m-0">
           <strong>{title}</strong>
         </h5>
-      </div>
-      <div className="px-3">
-        <Divider />
       </div>
     </>
   );
@@ -40,7 +39,7 @@ const ListCardHeader = ({ title }) => {
 
 const ListCard = ({ title }) => {
   return (
-    <Card className={`d-flex flex-column h-100`}>
+    <Card className={`${classes["card--list"]} d-flex flex-column h-100`}>
       <ListCardHeader title={title} />
       <div className="p-2 overflow-auto">
         {orders.map((order, index) => (
