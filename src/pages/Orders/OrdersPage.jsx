@@ -18,12 +18,14 @@ const lists = [
 
 const OrdersPage = () => {
   return (
-    <Container className="row py-5 h-100" fluid>
-      {lists.map((list) => (
-        <div key={list.title} className="px-2 col">
-          <ListCard {...list} />
-        </div>
-      ))}
+    <Container className="py-5 h-100" fluid>
+      <div className="row h-100">
+        {lists.map((list) => (
+          <div key={list.title} className="px-2 col">
+            <ListCard {...list} />
+          </div>
+        ))}
+      </div>
     </Container>
   );
 };
