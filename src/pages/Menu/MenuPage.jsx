@@ -18,7 +18,7 @@ const MenuPage = () => {
     setCategoryDetailsModalShow(false);
 
   return (
-    <Container className="py-5">
+    <Container className="py-5 min-height-100">
       <SectionTitle>Categorias</SectionTitle>
 
       <Categories />

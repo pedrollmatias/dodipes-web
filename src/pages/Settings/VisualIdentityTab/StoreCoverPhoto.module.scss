@@ -1,0 +1,18 @@
+.container--store-cover-photo {
+  position: relative;
+  height: 300px;
+  width: 500px;
+
+  .img--store-cover-photo {
+    height: 100%;
+    width: 100%;
+    border-radius: 22px;
+    object-fit: cover;
+  }
+
+  .container--btn-edit {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+}
