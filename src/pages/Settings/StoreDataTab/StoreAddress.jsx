@@ -6,7 +6,7 @@ import SectionTitle from "../../../components/UI/SectionTitle";
 const StoreAddress = () => {
   return (
     <>
-      <SectionTitle marginBottom="mb-4">Endereço</SectionTitle>
+      <SectionTitle className="mb-4">Endereço</SectionTitle>
 
       <Form>
         <div className="row">

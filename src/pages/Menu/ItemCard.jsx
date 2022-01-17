@@ -10,7 +10,7 @@ import { numberToCurrency } from "../../lib/currency";
 import SlideToggle from "../../components/UI/SlideToggle";
 import IconButton from "../../components/UI/IconButton";
 
-import classes from "./CategoryItemCard.module.scss";
+import classes from "./ItemCard.module.scss";
 
 const ItemImg = () => {
   return (
@@ -57,7 +57,7 @@ const ItemActions = () => {
   );
 };
 
-const CategoryItemCard = ({ name, description, img, active, price }) => {
+const ItemCard = ({ name, description, img, active, price }) => {
   return (
     <Card>
       <div className="row align-items-center">
@@ -81,4 +81,4 @@ const CategoryItemCard = ({ name, description, img, active, price }) => {
   );
 };
 
-export default CategoryItemCard;
+export default ItemCard;

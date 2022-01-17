@@ -1,3 +1,6 @@
+import React from "react";
+import Divider from "../../components/UI/Divider";
+
 import UserRequest from "./UserRequest";
 
 const users = [
@@ -14,10 +17,16 @@ const users = [
 const UsersRequests = () => {
   return (
     <>
-      {users.map((user) => (
-        <div className="mb-4" key={user.username}>
+      {users.map((user, index) => (
+        <React.Fragment key={user.username}>
           <UserRequest user={user} />
-        </div>
+
+          {index !== users.length - 1 && (
+            <div className="my-3">
+              <Divider />
+            </div>
+          )}
+        </React.Fragment>
       ))}
     </>
   );

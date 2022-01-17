@@ -19,13 +19,14 @@ const MenuPage = () => {
 
   return (
     <Container className="py-5 min-height-100">
-      <SectionTitle>Categorias</SectionTitle>
+      <div className="d-flex align-items-center mb-5">
+        <SectionTitle className="mb-0 me-5">Categorias</SectionTitle>
+        <Button className="px-4" onClick={handleCategoryDetailsModalShow}>
+          Adicionar categoria
+        </Button>
+      </div>
 
       <Categories />
-
-      <Button className="px-5" onClick={handleCategoryDetailsModalShow}>
-        Adicionar categoria
-      </Button>
 
       <CategoryDetailsModal
         show={categoryDetailsModalShow}

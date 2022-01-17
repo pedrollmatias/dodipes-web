@@ -1,6 +1,5 @@
 import Card from "react-bootstrap/Card";
 
-import Divider from "../../components/UI/Divider";
 import OrderCard from "./OrderCard";
 
 import classes from "./ListCard.module.scss";

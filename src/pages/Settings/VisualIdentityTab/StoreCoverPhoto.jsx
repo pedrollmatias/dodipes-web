@@ -22,7 +22,7 @@ const StoreCoverPhoto = () => {
         </div>
       </div>
 
-      <SectionTitle marginBottom="mb-4">Foto de capa</SectionTitle>
+      <SectionTitle className="mb-4">Foto de capa</SectionTitle>
 
       <p className="text-center">
         Imagem que será exibida durante a abertura de conta pelos clientes

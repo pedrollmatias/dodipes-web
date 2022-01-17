@@ -1,4 +1,3 @@
-import { useState } from "react";
 import UserAvatar from "./UserAvatar";
 
 const User = ({

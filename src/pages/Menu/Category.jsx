@@ -1,16 +1,17 @@
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
 
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { MdAdd } from "react-icons/md";
 
-import CategoryItemCard from "./CategoryItemCard";
-
-import IconButton from "../../components/UI/IconButton";
-import Divider from "../../components/UI/Divider";
+import ItemCard from "./ItemCard";
 import AddItemModal from "./AddItemModal";
+import CategoryDetailsModal from "./CategoryDetailsModal";
+
+import IconLabelButton from "../../components/UI/IconLabelButton";
 
 const categoryItems = [
   {
+    id: 1,
     name: "Filé com Fritas",
     description: "300g de picanha maturada e 500g de fritas",
     img: "aaa",
@@ -18,6 +19,7 @@ const categoryItems = [
     price: 7990,
   },
   {
+    id: 2,
     name: "Filé com Fritas",
     description: "300g de picanha maturada e 500g de fritas",
     img: "aaa",
@@ -27,6 +29,14 @@ const categoryItems = [
 ];
 
 const Category = ({ name }) => {
+  const [categoryDetailsModalShow, setCategoryDetailsModalShow] =
+    useState(false);
+
+  const handleCategoryDetailsModalShow = () =>
+    setCategoryDetailsModalShow(true);
+  const handleCategoryDetailsModalHide = () =>
+    setCategoryDetailsModalShow(false);
+
   const [isEditingItem, setIsEditingItem] = useState(false);
   const [addItemModalShow, setAddItemModalShow] = useState(false);
 
@@ -38,41 +48,45 @@ const Category = ({ name }) => {
 
   return (
     <>
-      <div className="d-flex align-items-center mb-3">
-        <h5 className="me-4">{name}</h5>
-
-        <div className="me-2">
-          <IconButton icon={FiEdit} size="sm" />
+      <div className="d-flex justify-content-end mb-4 w-100">
+        <div className="me-3">
+          <IconLabelButton
+            icon={FiTrash2}
+            label="Remover categoria"
+            variant="danger"
+            onClick={() => {}}
+          />
         </div>
 
-        <div>
-          <IconButton icon={FiTrash2} size="sm" />
+        <div className="me-3">
+          <IconLabelButton
+            icon={FiEdit}
+            label="Editar categoria"
+            onClick={handleCategoryDetailsModalShow}
+          />
         </div>
+
+        <IconLabelButton
+          icon={MdAdd}
+          label="Adicionar item"
+          onClick={handleAddItemModalShow}
+        />
       </div>
 
       <div className="mb-3">
         {categoryItems.map((categoryItem) => (
-          <div key={name} className="mb-3">
-            <CategoryItemCard {...categoryItem} />
+          <div key={categoryItem.id} className="mb-3">
+            <ItemCard {...categoryItem} />
           </div>
         ))}
       </div>
 
-      <div className="d-flex justify-content-end">
-        <Button
-          className="px-4"
-          variant="primary"
-          onClick={handleAddItemModalShow}
-        >
-          Adicionar item
-        </Button>
-      </div>
-
-      <div className="py-3">
-        <Divider />
-      </div>
-
       <AddItemModal show={addItemModalShow} onHide={handleAddItemModalHide} />
+      <CategoryDetailsModal
+        show={categoryDetailsModalShow}
+        onHide={handleCategoryDetailsModalHide}
+        isEditing={true}
+      />
     </>
   );
 };

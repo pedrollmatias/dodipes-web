@@ -1,3 +1,6 @@
+import React from "react";
+import Divider from "../../components/UI/Divider";
+
 import UserRow from "./UserRow";
 
 const users = [
@@ -36,10 +39,16 @@ const users = [
 const Users = () => {
   return (
     <>
-      {users.map((user) => (
-        <div className="mb-4" key={user.username}>
+      {users.map((user, index) => (
+        <React.Fragment key={user.username}>
           <UserRow {...user} />
-        </div>
+
+          {index !== users.length - 1 && (
+            <div className="my-3">
+              <Divider />
+            </div>
+          )}
+        </React.Fragment>
       ))}
     </>
   );

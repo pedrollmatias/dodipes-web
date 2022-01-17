@@ -6,7 +6,7 @@ import SectionTitle from "../../../components/UI/SectionTitle";
 const StoreInfo = () => {
   return (
     <>
-      <SectionTitle marginBottom="mb-4">Informações</SectionTitle>
+      <SectionTitle className="mb-4">Informações</SectionTitle>
 
       <Form>
         <Form.Group className="mb-3" controlId="cpfCnpj">

@@ -30,7 +30,7 @@ const StoreLogo = () => {
         </div>
       </div>
 
-      <SectionTitle marginBottom="mb-4">
+      <SectionTitle className="mb-4">
         Logotipo do estabelecimento
       </SectionTitle>
 

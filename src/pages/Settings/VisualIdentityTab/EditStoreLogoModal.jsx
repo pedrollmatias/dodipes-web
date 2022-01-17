@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import AvatarEditor from "react-avatar-editor";
 
 import ModalActionButton from "../../../components/UI/ModalActionButton";
-import Slider from "../../../components/UI/Slider";
 import FileUploaderButton from "../../../components/UI/FileUploaderButton";
 
 const EditStoreLogoModal = ({ show, onHide: handleHide }) => {
@@ -52,12 +51,14 @@ const EditStoreLogoModal = ({ show, onHide: handleHide }) => {
 
           <div className="d-flex">
             <span className="me-4">Zoom</span>
-            <Slider
+            <Form.Range
               min={1}
               max={2}
               step={0.1}
+              value={1.5}
               onChange={handleImageEditorScale}
             />
+            
           </div>
         </Modal.Body>
 

@@ -9,7 +9,7 @@ const IconLabelButton = ({
   onClick = () => {},
   disabled = false,
   size,
-  iconSize = 30,
+  iconSize = 20,
 }) => {
   return (
     <Button

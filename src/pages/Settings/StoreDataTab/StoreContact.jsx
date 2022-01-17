@@ -6,7 +6,7 @@ import SectionTitle from "../../../components/UI/SectionTitle";
 const StoreContact = () => {
   return (
     <>
-      <SectionTitle marginBottom="mb-4">Contato</SectionTitle>
+      <SectionTitle className="mb-4">Contato</SectionTitle>
 
       <Form>
         <div className="row">
