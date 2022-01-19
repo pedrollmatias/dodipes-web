@@ -32,7 +32,7 @@ const UserProfileMenu = () => (
       <span className="px-3">Pedro Matias</span>
     </Dropdown.Toggle>
 
-    <Dropdown.Menu className="p-3">
+    <Dropdown.Menu>
       {userMenu.map((menuItem) => (
         <Dropdown.Item className="px-3 py-2" as={NavLink} to={menuItem.path} key={menuItem.path}>
           {menuItem.label}

@@ -1,0 +1,8 @@
+@import "../../styles-variables.scss";
+
+.btn--quick-access {
+  cursor: pointer;
+  height: 100px;
+  width: 140px;
+  border-radius: $card-border-radius;
+}
