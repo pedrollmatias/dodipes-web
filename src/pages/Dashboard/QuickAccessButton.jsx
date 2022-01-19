@@ -8,7 +8,7 @@ const QuickAccessButton = ({ icon: Icon, label, link }) => {
     <Link to={link}>
       <Card className="cursor-pointer grow p-4">
         <div
-          className={`${classes["btn--quick-access"]} d-flex flex-column align-items-center`}
+          className={`${classes["container--quick-access"]} d-flex flex-column align-items-center`}
         >
           <Icon className="text-primary mb-4" size={50} />
           <span className="text-center">{label}</span>

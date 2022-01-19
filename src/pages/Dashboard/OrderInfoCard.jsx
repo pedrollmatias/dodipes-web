@@ -5,7 +5,7 @@ import classes from "./OrderInfoCard.module.scss";
 
 const OrderInfoCard = ({ amount, label, icon: Icon }) => {
   return (
-    <Link to="/orders">
+    <Link to="/store/orders">
       <Card className="cursor-pointer grow">
         <div
           className={`${classes["card--order-info"]} d-flex align-items-center p-4`}

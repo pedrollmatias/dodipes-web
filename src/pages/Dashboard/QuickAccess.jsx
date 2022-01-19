@@ -9,17 +9,17 @@ const quickAccessButton = [
   {
     label: "Convidar usuário",
     icon: AiOutlineUserAdd,
-    link: "/dashboard",
+    link: "/store/dashboard",
   },
   {
     label: "Painel Token",
     icon: GoDeviceDesktop,
-    link: "/dashboard",
+    link: "/store/token-panel",
   },
   {
     label: "Adicionar Item",
     icon: CgBowl,
-    link: "/dashboard",
+    link: "/store/menu",
   },
 ];
 
