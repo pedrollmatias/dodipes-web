@@ -7,9 +7,9 @@ import IconLabelButton from "../../components/UI/IconLabelButton";
 
 import presentationImg from "../../assets/store-creation-presentation.png";
 
-import classes from "./Presentation.module.scss";
+import classes from "./PresentationStep.module.scss";
 
-const Footer = () => {
+const Footer = ({ forwardStep }) => {
   return (
     <div
       className={`${classes.footer} d-flex justify-content-center align-items-center flex-wrap p-5`}
@@ -20,12 +20,13 @@ const Footer = () => {
         label="Criar estabelecimento"
         variant="light"
         className="text-primary px-5 bg-white"
+        onClick={forwardStep}
       />
     </div>
   );
 };
 
-const Presentation = () => {
+const PresentationStep = ({ forwardStep }) => {
   return (
     <div
       className={`${classes["container--presentation"]} d-flex flex-column h-100`}
@@ -58,9 +59,9 @@ const Presentation = () => {
           </div>
         </div>
       </Container>
-      <Footer />
+      <Footer forwardStep={forwardStep} />
     </div>
   );
 };
 
-export default Presentation;
+export default PresentationStep;

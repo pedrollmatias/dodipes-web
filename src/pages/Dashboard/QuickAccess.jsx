@@ -30,7 +30,7 @@ const QuickAccess = () => {
 
       <div className="d-flex flex-wrap">
         {quickAccessButton.map((quickAccessButton) => (
-          <div className="m-3" key={quickAccessButton.label}>
+          <div className="me-4 my-3" key={quickAccessButton.label}>
             <QuickAccessButton {...quickAccessButton} />
           </div>
         ))}

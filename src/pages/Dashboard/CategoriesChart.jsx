@@ -8,9 +8,7 @@ const CategoriesChart = ({ categories }) => {
     const maxWidth = 100;
     return (maxWidth * totalItems) / getCategoryWithMaxItem()
   }
-
-  console.log(getCategoryWithMaxItem());
-
+  
   return (
     <div className={`${classes["chart--categories"]} d-flex flex-column`}>
       {categories.map((category) => (

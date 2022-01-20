@@ -6,7 +6,6 @@ import ModalActionButton from "../../../components/UI/ModalActionButton";
 const ConfirmPasswordStep = ({ handleHide, forwardStep }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("submit");
     forwardStep();
   };
 

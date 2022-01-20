@@ -1,0 +1,32 @@
+@import "../../styles-variables.scss";
+
+.stepper {
+  .icon--step {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: $light-grey;
+    color: $grey;
+
+    &.active {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+
+  .label--step {
+    color: $grey;
+
+    &.active {
+      color: $primary;
+    }
+  }
+
+  .line {
+    border-bottom: 2px solid $light-grey;
+
+    &.active {
+      border-color: $primary;
+    }
+  }
+}
