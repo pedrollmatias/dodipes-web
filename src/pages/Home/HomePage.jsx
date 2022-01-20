@@ -13,10 +13,6 @@ const HomePage = () => {
       </h4>
 
       <Stores />
-
-      <Link to="/store-creation">
-        <Button className="mt-5">Store Creation</Button>
-      </Link>
     </Container>
   );
 };

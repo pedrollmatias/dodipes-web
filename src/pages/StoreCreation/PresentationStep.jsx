@@ -20,6 +20,8 @@ const Footer = ({ forwardStep }) => {
         label="Criar estabelecimento"
         variant="light"
         className="text-primary px-5 bg-white"
+        size="lg"
+        iconSize={30}
         onClick={forwardStep}
       />
     </div>
