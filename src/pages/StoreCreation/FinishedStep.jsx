@@ -12,7 +12,7 @@ const FinishedStep = () => {
       </div>
       <SectionTitle>Parabéns, seu estabelecimento foi criado!</SectionTitle>
       <p className="mb-5">
-        Monte seu cardápio, inclua usuário para auxiliar na gestão, gere QR
+        Monte seu cardápio, inclua usuários para auxiliar na gestão, gere QR
         Codes para mesas, tudo de forma simplificada. Seja bem-vindo ao universo{" "}
         <strong>Dodipes!</strong>
       </p>

@@ -30,39 +30,35 @@ const Footer = ({ forwardStep }) => {
 
 const PresentationStep = ({ forwardStep }) => {
   return (
-    <div
-      className={`${classes["container--presentation"]} d-flex flex-column h-100`}
-    >
-      <Container className="py-5 flex-grow-1">
-        <h3 className="text-center mb-5">
-          <strong>Bem vindo a criação de estabelecimento no Dodipes!</strong>
-        </h3>
-
-        <div className="row align-items-center">
-          <div className="col-md-6 px-5">
-            <img
-              className={classes["img--presentation"]}
-              src={presentationImg}
-              alt="Restaurant digital order"
-            />
-          </div>
-          <div className="col-md-6 px-5">
-            <section>
-              <p className="text-justify h4 mb-5">
-                Tenha um cardápio digital simples e eficiente e melhore a
-                experiência de pedidos de seus clientes.
-              </p>
-              <p className="text-justify h4">
-                Utilizando o <strong>Dodipes</strong> para pedidos, você
-                proporciona maior satisfação aos clientes e economiza custos
-                operacionais.
-              </p>
-            </section>
-          </div>
+    <Container className="py-5 h-100">
+      <div
+        className={`${classes["container--presentation"]} row align-items-center justify-content-center h-100`}
+      >
+        <div className="col-md-6 px-5">
+          <img
+            className={classes["img--presentation"]}
+            src={presentationImg}
+            alt="Restaurant digital order"
+          />
         </div>
-      </Container>
-      <Footer forwardStep={forwardStep} />
-    </div>
+        <div className="col-md-6 px-5">
+          <h1 className="mb-5">
+            <strong>
+              Feito para estabelecimentos{" "}
+              <span className="text-primary">modernos</span>
+            </strong>
+          </h1>
+          <IconLabelButton
+            icon={BiStore}
+            label="Criar estabelecimento"
+            className="text-primary px-5"
+            size="lg"
+            iconSize={30}
+            onClick={forwardStep}
+          />
+        </div>
+      </div>
+    </Container>
   );
 };
 

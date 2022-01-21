@@ -14,8 +14,6 @@ const stores = [
 const Stores = () => {
   return (
     <>
-      <SectionTitle className="mb-4">Meus estabelecimentos</SectionTitle>
-
       <div className="row">
         {stores.map((store) => (
           <div key={store.id} className="col">

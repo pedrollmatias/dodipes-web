@@ -2,8 +2,7 @@
 
 .card--list {
   overflow: hidden;
-
-  .card--list-header {
-    background-color: $light-grey;
-  }
+  background-color: #f8f8f8;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 3px 0px;
+  border: 1px solid $light-grey !important;
 }

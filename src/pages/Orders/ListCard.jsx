@@ -27,7 +27,7 @@ const orders = [
 const ListCardHeader = ({ title }) => {
   return (
     <>
-      <div className={`${classes["card--list-header"]} px-3 py-2 w-100`}>
+      <div className="p-3 w-100">
         <h5 className="m-0">
           <strong>{title}</strong>
         </h5>
