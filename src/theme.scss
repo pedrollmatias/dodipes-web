@@ -19,7 +19,8 @@ a {
 }
 
 .btn {
-  &.btn-primary, &.btn-danger {
+  &.btn-primary,
+  &.btn-danger {
     color: $white !important;
 
     &:hover,
@@ -31,9 +32,9 @@ a {
 }
 
 .card {
-  border-radius: $card-border-radius !important;
-  border: 1px solid $light-grey !important;
-  box-shadow: 2px 2px 7px -3px rgba(0, 0, 0, 0.15);
+  border-radius: $card-border-radius;
+  border: none !important;
+  @include main-box-shadow;
 }
 
 .modal-dialog {
@@ -55,12 +56,7 @@ a {
   }
 }
 
-.form-control {
-  border: none !important;
-  padding: 0.75rem !important;
-  background-color: $light-grey !important;
-}
-
+.form-control,
 .form-select {
   border: none !important;
   padding: 0.75rem !important;

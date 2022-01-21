@@ -18,11 +18,10 @@ const TokenPanelToggle = () => {
           </span>
 
           <p className="text-muted">
-            Para os clientes confirmarem o pedido, é necessário informar um
-            Token, informado presencialmente no estabelecimento. Isso evita que
-            pessoas fora do local realizem pedidos. Deve haver no
-            estabelecimento um painel eletrônico mostrando o Token, que é
-            disponibilizado pela plataforma web.
+            Para os clientes confirmarem o pedido, é necessária uma
+            confirmação por Token, que é informado presencialmente pelo
+            estabelecimento, normalmente em paineis e displays. Isso evita que
+            pessoas fora do local realizem pedidos. O Token é gerado pelo Dodipes web.
           </p>
         </div>
       </div>

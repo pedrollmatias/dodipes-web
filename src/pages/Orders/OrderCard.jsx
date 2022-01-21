@@ -1,16 +1,20 @@
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
 
+import classes from "./OrderCard.module.scss";
+
 const OrderCard = ({ title, obs, tableNumber, datetime }) => {
   return (
-    <Card className="cursor-pointer p-2">
+    <Card className={`${classes.card} cursor-pointer p-2`}>
       <h6>
         <strong>{title}</strong>
       </h6>
 
       <div className="mb-2">
         {obs ? (
-          <small className="text-danger"><strong>{obs}</strong></small>
+          <small className="text-danger">
+            <strong>{obs}</strong>
+          </small>
         ) : (
           <small className="text-muted">Sem observações</small>
         )}

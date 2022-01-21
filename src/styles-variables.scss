@@ -10,5 +10,10 @@ $success: #3ebd73;
 
 $light-grey: #efefef;
 $grey: grey;
+$background-color: #eef2f7;
 
 $card-border-radius: 0.75rem;
+
+@mixin main-box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 20px 0px;
+}

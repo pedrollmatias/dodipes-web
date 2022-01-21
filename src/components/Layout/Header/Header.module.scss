@@ -1,11 +1,11 @@
-@import '../../../styles-variables.scss';
+@import "../../../styles-variables.scss";
 
 .header {
   min-height: 70px;
   width: 100%;
-  // padding: 0px 150px;
-  background-color: $white;
-  box-shadow: 0px -17px 20px 25px rgba(0,0,0,0.15);
-  z-index: 1;
+  background-color: $primary;
+  color: $white;
   position: relative;
+  z-index: 1;
+  @include main-box-shadow;
 }

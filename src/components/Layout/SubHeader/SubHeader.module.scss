@@ -3,5 +3,7 @@
 .sub-header {
   min-height: 70px;
   width: 100%;
-  background-color: $light-grey;
+  position: relative;
+  background-color: $white;
+  @include main-box-shadow;
 }
