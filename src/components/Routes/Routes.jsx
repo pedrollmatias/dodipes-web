@@ -12,11 +12,13 @@ import MenuPage from "../../pages/Menu/MenuPage";
 import TablesQrCodes from "../../pages/TablesQrCodes/TablesQrCodesPage";
 import UsersPage from "../../pages/Users/UsersPage";
 import TokenPanelPage from "../../pages/TokenPanel/TokenPanelPage";
+import AuthPage from "../../pages/Auth/AuthPage";
 
 const AppRoutes = () => (
   <Routes>
+    <Route path="/auth" element={<AuthPage />} />
     <Route path="/" element={<MainLayout />}>
-      <Route index element={<Navigate to="home" />} />
+      <Route index element={<Navigate to="auth" />} />
       <Route path="home" element={<HomePage />} />
       <Route path="store-creation" element={<StoreCreationPage />} />
     </Route>
