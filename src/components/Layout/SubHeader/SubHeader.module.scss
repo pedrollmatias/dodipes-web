@@ -4,6 +4,5 @@
   min-height: 70px;
   width: 100%;
   position: relative;
-  background-color: $white;
-  @include main-box-shadow;
+  background-color: $primary-opaque;
 }

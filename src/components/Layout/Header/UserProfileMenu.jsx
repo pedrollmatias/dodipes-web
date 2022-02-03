@@ -25,7 +25,7 @@ const userMenu = [
 
 const UserProfileMenu = () => (
   <Dropdown>
-    <Dropdown.Toggle variant="primary" id="user-profile">
+    <Dropdown.Toggle variant="light" id="user-profile">
       <FiUser size={30} />
       <span className="px-3">Pedro Matias</span>
     </Dropdown.Toggle>
