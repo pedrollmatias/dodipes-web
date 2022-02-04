@@ -1,7 +1,5 @@
 import StoreCard from "./StoreCard";
 
-import SectionTitle from "../../components/UI/SectionTitle";
-
 const stores = [
   {
     id: 1,

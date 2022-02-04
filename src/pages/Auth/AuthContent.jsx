@@ -1,15 +1,15 @@
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { GoogleLogin } from "react-google-login";
-
 import Divider from "../../components/UI/Divider";
-
 import classes from "./AuthContent.module.scss";
 
 const AuthTitle = () => (
-  <h2 className={`${classes["auth-title"]} mb-0`}>
+  <h3 className={`${classes["auth-title"]} mb-0`}>
     <strong>Venha fazer parte da revolução.</strong>
-  </h2>
+  </h3>
 );
 
 const AuthSubtitle = () => (
@@ -43,7 +43,19 @@ const RegisterText = ({ onClick: handleContentChange }) => {
 };
 
 const AuthContent = ({ onContentChange: handleContentChange }) => {
-  const responseGoogle = () => {};
+  const context = useContext(AuthContext);
+
+  const responseGoogle = async (result) => {
+    const { profileObj, tokenId } = result;
+    const { email, familyName, givenName, imageUrl } = profileObj;
+    const body = {
+      email,
+      name: { firstName: givenName, lastName: familyName },
+      avatar: imageUrl,
+    };
+    
+    context.login({ body, token: tokenId });
+  };
 
   return (
     <>
@@ -56,7 +68,7 @@ const AuthContent = ({ onContentChange: handleContentChange }) => {
       </div>
 
       <GoogleLogin
-        clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+        clientId="388487231503-1p8mnvgc2aik7u5f1p65olm03g3id493.apps.googleusercontent.com"
         buttonText="Continuar com o Google"
         className={`${classes["google-btn"]} d-flex justify-content-center px-4 py-1 w-100`}
         onSuccess={responseGoogle}

@@ -1,32 +1,11 @@
 import Container from "react-bootstrap/Container";
-
 import { BiStore } from "react-icons/bi";
 
-import SectionTitle from "../../components/UI/SectionTitle";
 import IconLabelButton from "../../components/UI/IconLabelButton";
 
 import presentationImg from "../../assets/store-creation-presentation.png";
 
 import classes from "./PresentationStep.module.scss";
-
-const Footer = ({ forwardStep }) => {
-  return (
-    <div
-      className={`${classes.footer} d-flex justify-content-center align-items-center flex-wrap p-5`}
-    >
-      <SectionTitle className="me-5 mb-0">Vamos começar?</SectionTitle>
-      <IconLabelButton
-        icon={BiStore}
-        label="Criar estabelecimento"
-        variant="light"
-        className="text-primary px-5 bg-white"
-        size="lg"
-        iconSize={30}
-        onClick={forwardStep}
-      />
-    </div>
-  );
-};
 
 const PresentationStep = ({ forwardStep }) => {
   return (
