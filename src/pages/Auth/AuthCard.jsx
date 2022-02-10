@@ -12,7 +12,7 @@ const AuthCard = () => {
   };
 
   return (
-    <Card className="d-flex justify-content-center text-center p-3 p-sm-5">
+    <Card className="d-flex p-3 p-sm-5">
       {showAuthContent ? (
         <AuthContent onContentChange={handleShowAuthContent} />
       ) : (

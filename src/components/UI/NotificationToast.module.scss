@@ -1,0 +1,13 @@
+@import "../../styles-variables.scss";
+
+.notification-toast {
+  border: none;
+  border-radius: 0.5rem;
+
+  .header {
+    color: $black;
+    background-color: transparent;
+    border-bottom: none;
+    border-radius: 0;
+  }
+}

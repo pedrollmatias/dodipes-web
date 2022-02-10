@@ -1,49 +1,47 @@
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/auth";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../contexts/auth-context";
 import { GoogleLogin } from "react-google-login";
 import Divider from "../../components/UI/Divider";
 import classes from "./AuthContent.module.scss";
+import AuthForm from "./AuthForm";
 
 const AuthTitle = () => (
-  <h3 className={`${classes["auth-title"]} mb-0`}>
+  <h3 className={`${classes["auth-title"]} text-center mb-0`}>
     <strong>Venha fazer parte da revolução.</strong>
   </h3>
 );
 
 const AuthSubtitle = () => (
-  <h5 className={`${classes["auth-subtitle"]} mb-0`}>Como deseja continuar?</h5>
+  <h5
+    className={`${classes["auth-subtitle"]} text-center mb-0`}
+  >
+    Como deseja continuar?
+  </h5>
 );
 
-const AuthForm = () => {
-  return (
-    <Form>
-      <Form.Control className="mb-4" type="email" placeholder="E-mail" />
-      <Form.Control className="mb-4" type="password" placeholder="Senha" />
-      <Button className="px-5 py-2 w-100" variant="primary" type="submit">
-        Entrar
-      </Button>
-    </Form>
-  );
-};
+const RegisterText = ({ onClick: handleContentChange, disableInteraction }) => {
+  const registerText = "Cadastre-se";
 
-const RegisterText = ({ onClick: handleContentChange }) => {
   return (
-    <span>
-      Não tem uma conta?
-      <strong
-        className={`${classes["register-link"]} ms-1`}
-        onClick={handleContentChange}
-      >
-        Cadastre-se
-      </strong>
-    </span>
+    <div className="d-flex justify-content-center">
+      <span className="me-1">Não tem uma conta?</span>
+      {disableInteraction ? (
+        <strong className="text-muted">{registerText}</strong>
+      ) : (
+        <strong
+          className="text-primary cursor-pointer"
+          onClick={handleContentChange}
+        >
+          {registerText}
+        </strong>
+      )}
+    </div>
   );
 };
 
 const AuthContent = ({ onContentChange: handleContentChange }) => {
-  const context = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
+  const [isLoadingGoogleAuth, setIsLoadingGoogleAuth] = useState(false);
 
   const responseGoogle = async (result) => {
     const { profileObj, tokenId } = result;
@@ -53,8 +51,12 @@ const AuthContent = ({ onContentChange: handleContentChange }) => {
       name: { firstName: givenName, lastName: familyName },
       avatar: imageUrl,
     };
-    
-    context.login({ body, token: tokenId });
+
+    try {
+      await login({ body, token: tokenId });
+    } catch (error) {
+      setIsLoadingGoogleAuth(false);
+    }
   };
 
   return (
@@ -72,8 +74,10 @@ const AuthContent = ({ onContentChange: handleContentChange }) => {
         buttonText="Continuar com o Google"
         className={`${classes["google-btn"]} d-flex justify-content-center px-4 py-1 w-100`}
         onSuccess={responseGoogle}
-        onFailure={responseGoogle}
+        onFailure={() => setIsLoadingGoogleAuth(false)}
+        onRequest={() => setIsLoadingGoogleAuth(true)}
         cookiePolicy={"single_host_origin"}
+        disabled={isLoadingGoogleAuth}
       />
 
       <div className="py-5">
@@ -81,10 +85,13 @@ const AuthContent = ({ onContentChange: handleContentChange }) => {
       </div>
 
       <div className="mb-5">
-        <AuthForm />
+        <AuthForm disableInteraction={isLoadingGoogleAuth} />
       </div>
 
-      <RegisterText onClick={handleContentChange} />
+      <RegisterText
+        onClick={handleContentChange}
+        disableInteraction={isLoadingGoogleAuth}
+      />
     </>
   );
 };

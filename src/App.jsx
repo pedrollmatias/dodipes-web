@@ -1,15 +1,21 @@
 import { BrowserRouter as Router } from "react-router-dom";
+import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 
 import AppRoutes from "./components/Routes/Routes";
 
-import { AuthProvider } from "./contexts/auth";
+import { AuthProvider } from "./contexts/auth-context";
+import { ApiErrorProvider } from "./contexts/api-error-context";
 
 const App = () => (
-  <AuthProvider>
+  <ErrorBoundary>
     <Router>
-      <AppRoutes />
+      <ApiErrorProvider>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </ApiErrorProvider>
     </Router>
-  </AuthProvider>
+  </ErrorBoundary>
 );
 
 export default App;

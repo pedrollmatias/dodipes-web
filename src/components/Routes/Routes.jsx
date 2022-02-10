@@ -12,11 +12,11 @@ import TablesQrCodes from "../../pages/TablesQrCodes/TablesQrCodesPage";
 import UsersPage from "../../pages/Users/UsersPage";
 import TokenPanelPage from "../../pages/TokenPanel/TokenPanelPage";
 import AuthPage from "../../pages/Auth/AuthPage";
-import { AuthContext } from "../../contexts/auth";
+import NotFoundPage from "../../pages/NotFound/NotFoundPage";
+import { AuthContext } from "../../contexts/auth-context";
 
 const AppRoutes = () => {
   const { loggedIn } = useContext(AuthContext);
-  console.log(loggedIn);
 
   return (
     <Routes>
@@ -28,16 +28,20 @@ const AppRoutes = () => {
         <Route index element={<Navigate to="home" />} />
         <Route path="home" element={<HomePage />} />
         <Route path="store-creation" element={<StoreCreationPage />} />
-      </Route>
-      <Route path="store" element={!loggedIn ? <Navigate to="/auth" /> : <StoreLayout />}>
-        <Route index element={<Navigate to="dashboard" />} />
-        <Route path="dashboard" element={<DashboardPage />} />
-        <Route path="orders" element={<OrdersPage />} />
-        <Route path="settings" element={<SettingsPage />} />
-        <Route path="menu" element={<MenuPage />} />
-        <Route path="tables-qrcodes" element={<TablesQrCodes />} />
-        <Route path="users" element={<UsersPage />} />
-        <Route path="token-panel" element={<TokenPanelPage />} />
+        <Route
+          path="store"
+          element={!loggedIn ? <Navigate to="/auth" /> : <StoreLayout />}
+        >
+          <Route index element={<Navigate to="dashboard" />} />
+          <Route path="dashboard" element={<DashboardPage />} />
+          <Route path="orders" element={<OrdersPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+          <Route path="menu" element={<MenuPage />} />
+          <Route path="tables-qrcodes" element={<TablesQrCodes />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="token-panel" element={<TokenPanelPage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );
