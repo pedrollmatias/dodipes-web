@@ -5,16 +5,19 @@ import AppRoutes from "./components/Routes/Routes";
 
 import { AuthProvider } from "./contexts/auth-context";
 import { ApiErrorProvider } from "./contexts/api-error-context";
+import { LoadingProvider } from "./contexts/loading-context";
 
 const App = () => (
   <ErrorBoundary>
-    <Router>
-      <ApiErrorProvider>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
-      </ApiErrorProvider>
-    </Router>
+    <LoadingProvider>
+      <Router>
+        <ApiErrorProvider>
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
+        </ApiErrorProvider>
+      </Router>
+    </LoadingProvider>
   </ErrorBoundary>
 );
 

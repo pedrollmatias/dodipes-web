@@ -1,13 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm, useFormState } from "react-hook-form";
 import { AuthContext } from "../../contexts/auth-context";
+import { LoadingContext } from "../../contexts/loading-context";
+import { abort } from "../../lib/utils";
 
-const AuthForm = ({ disableInteraction }) => {
-  console.log(disableInteraction)
-  const [isLoading, setIsLoading] = useState(false);
-
+const AuthForm = () => {
+  const { isLoading } = useContext(LoadingContext);
   const { login } = useContext(AuthContext);
 
   const {
@@ -25,14 +25,9 @@ const AuthForm = ({ disableInteraction }) => {
   const { touchedFields } = useFormState({ control });
 
   const onSubmit = async (data) => {
-    setIsLoading(true);
     const { email, password } = data;
 
-    try {
-      await login({ body: { email, password } });
-    } catch (error) {
-      setIsLoading(false);
-    }
+    await login({ body: { email, password } }).catch(abort);
   };
 
   return (
@@ -45,7 +40,7 @@ const AuthForm = ({ disableInteraction }) => {
             required: { value: true, message: "E-mail obrigatório" },
           })}
           isInvalid={touchedFields?.email && errors?.email}
-          disabled={isLoading || disableInteraction}
+          disabled={isLoading}
         />
 
         <Form.Control.Feedback type="invalid">
@@ -65,7 +60,7 @@ const AuthForm = ({ disableInteraction }) => {
             },
           })}
           isInvalid={touchedFields?.password && errors?.password}
-          disabled={isLoading || disableInteraction}
+          disabled={isLoading}
         />
 
         <Form.Control.Feedback type="invalid">
@@ -77,7 +72,7 @@ const AuthForm = ({ disableInteraction }) => {
         className="px-5 py-2 w-100"
         variant="primary"
         type="submit"
-        disabled={isLoading || disableInteraction}
+        disabled={isLoading}
       >
         Entrar
       </Button>

@@ -43,4 +43,6 @@ export const ApiErrorProvider = ({ children }) => {
   );
 };
 
-export const ApiErrorContext = createContext();
+export const ApiErrorContext = createContext({
+  setError: () => {},
+});

@@ -1,10 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm, useFormState } from "react-hook-form";
 import { useApi } from "../../hooks/use-api";
 import { registerUser } from "../../services/user-serivce";
 import { AuthContext } from "../../contexts/auth-context";
+import { LoadingContext } from "../../contexts/loading-context";
+import { abort } from "../../lib/utils";
 
 const emailRegex =
   /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
@@ -12,10 +14,9 @@ const emailRegex =
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
 
 const RegisterForm = ({ onCancel: handleContentChange }) => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const registerUserApi = useApi(registerUser);
   const { login } = useContext(AuthContext);
+  const { isLoading } = useContext(LoadingContext);
+  const registerUserApi = useApi(registerUser);
 
   const {
     watch,
@@ -36,8 +37,6 @@ const RegisterForm = ({ onCancel: handleContentChange }) => {
   const { touchedFields } = useFormState({ control });
 
   const onSubmit = async (data) => {
-    setIsLoading(true);
-
     const { firstName, lastName, email, password } = data;
     const body = {
       email,
@@ -49,7 +48,7 @@ const RegisterForm = ({ onCancel: handleContentChange }) => {
       await registerUserApi(body);
       await login({ body: { email, password } });
     } catch (error) {
-      setIsLoading(false);
+      abort();
     }
   };
 

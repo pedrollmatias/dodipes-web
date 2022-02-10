@@ -1,9 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
+import { LoadingContext } from "../../contexts/loading-context";
 import { GoogleLogin } from "react-google-login";
 import Divider from "../../components/UI/Divider";
 import classes from "./AuthContent.module.scss";
 import AuthForm from "./AuthForm";
+import { abort } from "../../lib/utils";
 
 const AuthTitle = () => (
   <h3 className={`${classes["auth-title"]} text-center mb-0`}>
@@ -12,20 +14,19 @@ const AuthTitle = () => (
 );
 
 const AuthSubtitle = () => (
-  <h5
-    className={`${classes["auth-subtitle"]} text-center mb-0`}
-  >
+  <h5 className={`${classes["auth-subtitle"]} text-center mb-0`}>
     Como deseja continuar?
   </h5>
 );
 
-const RegisterText = ({ onClick: handleContentChange, disableInteraction }) => {
+const RegisterText = ({ onClick: handleContentChange }) => {
+  const { isLoading } = useContext(LoadingContext);
   const registerText = "Cadastre-se";
 
   return (
     <div className="d-flex justify-content-center">
       <span className="me-1">Não tem uma conta?</span>
-      {disableInteraction ? (
+      {isLoading ? (
         <strong className="text-muted">{registerText}</strong>
       ) : (
         <strong
@@ -41,7 +42,7 @@ const RegisterText = ({ onClick: handleContentChange, disableInteraction }) => {
 
 const AuthContent = ({ onContentChange: handleContentChange }) => {
   const { login } = useContext(AuthContext);
-  const [isLoadingGoogleAuth, setIsLoadingGoogleAuth] = useState(false);
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
 
   const responseGoogle = async (result) => {
     const { profileObj, tokenId } = result;
@@ -52,11 +53,7 @@ const AuthContent = ({ onContentChange: handleContentChange }) => {
       avatar: imageUrl,
     };
 
-    try {
-      await login({ body, token: tokenId });
-    } catch (error) {
-      setIsLoadingGoogleAuth(false);
-    }
+    await login({ body, token: tokenId }).catch(abort);
   };
 
   return (
@@ -74,10 +71,10 @@ const AuthContent = ({ onContentChange: handleContentChange }) => {
         buttonText="Continuar com o Google"
         className={`${classes["google-btn"]} d-flex justify-content-center px-4 py-1 w-100`}
         onSuccess={responseGoogle}
-        onFailure={() => setIsLoadingGoogleAuth(false)}
-        onRequest={() => setIsLoadingGoogleAuth(true)}
+        onFailure={() => setIsLoading(false)}
+        onRequest={() => setIsLoading(true)}
         cookiePolicy={"single_host_origin"}
-        disabled={isLoadingGoogleAuth}
+        disabled={isLoading}
       />
 
       <div className="py-5">
@@ -85,13 +82,10 @@ const AuthContent = ({ onContentChange: handleContentChange }) => {
       </div>
 
       <div className="mb-5">
-        <AuthForm disableInteraction={isLoadingGoogleAuth} />
+        <AuthForm />
       </div>
 
-      <RegisterText
-        onClick={handleContentChange}
-        disableInteraction={isLoadingGoogleAuth}
-      />
+      <RegisterText onClick={handleContentChange} />
     </>
   );
 };

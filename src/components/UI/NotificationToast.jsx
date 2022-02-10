@@ -4,7 +4,13 @@ import { useContext, useState } from "react";
 import { ApiErrorContext } from "../../contexts/api-error-context";
 import classes from "./NotificationToast.module.scss";
 
-const NotificationToast = ({ title, message, bg, autohide = true }) => {
+const NotificationToast = ({
+  title,
+  message,
+  bg,
+  autohide = true,
+  delay = 7000,
+}) => {
   const { setError } = useContext(ApiErrorContext);
   const [showToast, setShowToast] = useState(true);
 
@@ -20,7 +26,8 @@ const NotificationToast = ({ title, message, bg, autohide = true }) => {
         bg={bg}
         show={showToast}
         onClose={handleToastClose}
-        autohide
+        autohide={autohide}
+        delay={delay}
         animation
       >
         <Toast.Header className={classes["header"]}>
