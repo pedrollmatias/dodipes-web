@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Logo from "./Logo";
 import UserProfileMenu from "./UserProfileMenu";
-import { AuthContext } from "../../../contexts/auth-context";
+import { AuthContext } from "../../../contexts/auth";
 import classes from "./Header.module.scss";
 
 const Header = () => {

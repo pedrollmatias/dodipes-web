@@ -13,7 +13,7 @@ import UsersPage from "../../pages/Users/UsersPage";
 import TokenPanelPage from "../../pages/TokenPanel/TokenPanelPage";
 import AuthPage from "../../pages/Auth/AuthPage";
 import NotFoundPage from "../../pages/NotFound/NotFoundPage";
-import { AuthContext } from "../../contexts/auth-context";
+import { AuthContext } from "../../contexts/auth";
 
 const AppRoutes = () => {
   const { loggedIn } = useContext(AuthContext);

@@ -8,7 +8,9 @@ import storeCoverPhoto from "../../assets/cover-photo.jpg";
 
 import classes from "./StoreCard.module.scss";
 
-const StoreCard = ({ name, username, address }) => {
+const StoreCard = ({ name, storename, address }) => {
+  const { neighborhood, city, state } = address;
+
   return (
     <Card className={`${classes["card--store"]} grow`}>
       <Link to="/store">
@@ -26,11 +28,13 @@ const StoreCard = ({ name, username, address }) => {
                 <strong>{name}</strong>
               </h5>
 
-              <span className="text-muted mb-3">@{username}</span>
+              <span className="text-muted mb-3">@{storename}</span>
 
               <div className="d-flex aligm-items-center text-muted">
                 <MdOutlinePlace size={20} className="me-2" />
-                <small>{address}</small>
+                <small>
+                  {neighborhood}, {city} - {state}
+                </small>
               </div>
             </div>
           </div>

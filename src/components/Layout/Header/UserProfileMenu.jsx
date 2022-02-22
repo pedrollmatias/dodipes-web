@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FiUser } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
-import { AuthContext } from "../../../contexts/auth-context";
+import { AuthContext } from "../../../contexts/auth";
 import classes from "./UserProfileMenu.module.scss";
 
 const userMenu = [
@@ -23,7 +23,7 @@ const userMenu = [
 ];
 
 const UserProfileMenu = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, handleSignOut } = useContext(AuthContext);
 
   return (
     <Dropdown>
@@ -43,7 +43,10 @@ const UserProfileMenu = () => {
           </Dropdown.Item>
         ))}
         <div className="dropdown-divider" />
-        <Dropdown.Item className="d-flex align-items-center p-3" onClick={logout}>
+        <Dropdown.Item
+          className="d-flex align-items-center p-3"
+          onClick={handleSignOut}
+        >
           <BiLogOut className="me-3" />
           <span>Sair</span>
         </Dropdown.Item>

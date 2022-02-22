@@ -4,8 +4,7 @@ import Button from "react-bootstrap/Button";
 import { useForm, useFormState } from "react-hook-form";
 import { useApi } from "../../hooks/use-api";
 import { registerUser } from "../../services/user-serivce";
-import { AuthContext } from "../../contexts/auth-context";
-import { LoadingContext } from "../../contexts/loading-context";
+import { AuthContext } from "../../contexts/auth";
 import { abort } from "../../lib/utils";
 
 const emailRegex =
@@ -15,7 +14,6 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
 
 const RegisterForm = ({ onCancel: handleContentChange }) => {
   const { login } = useContext(AuthContext);
-  const { isLoading } = useContext(LoadingContext);
   const registerUserApi = useApi(registerUser);
 
   const {
@@ -62,7 +60,6 @@ const RegisterForm = ({ onCancel: handleContentChange }) => {
             required: { value: true, message: "Nome obrigatório" },
           })}
           isInvalid={touchedFields?.firstName && errors?.firstName}
-          disabled={isLoading}
         />
 
         <Form.Control.Feedback type="invalid">
@@ -78,7 +75,6 @@ const RegisterForm = ({ onCancel: handleContentChange }) => {
             required: { value: true, message: "Sobrenome obrigatório" },
           })}
           isInvalid={touchedFields?.lastName && errors?.lastName}
-          disabled={isLoading}
         />
 
         <Form.Control.Feedback type="invalid">
@@ -95,7 +91,6 @@ const RegisterForm = ({ onCancel: handleContentChange }) => {
             pattern: { value: emailRegex, message: "E-mail inválido" },
           })}
           isInvalid={touchedFields?.email && errors?.email}
-          disabled={isLoading}
         />
 
         <Form.Control.Feedback type="invalid">
@@ -119,7 +114,6 @@ const RegisterForm = ({ onCancel: handleContentChange }) => {
             },
           })}
           isInvalid={touchedFields?.password && errors?.password}
-          disabled={isLoading}
         />
 
         <Form.Control.Feedback type="invalid">
@@ -140,7 +134,6 @@ const RegisterForm = ({ onCancel: handleContentChange }) => {
               value === watch("password") || "Confirmação de senha incorreta",
           })}
           isInvalid={touchedFields?.confirmPassword && errors?.confirmPassword}
-          disabled={isLoading}
         />
 
         <Form.Control.Feedback type="invalid">
@@ -149,12 +142,7 @@ const RegisterForm = ({ onCancel: handleContentChange }) => {
       </Form.Group>
 
       <div className="mb-4">
-        <Button
-          className="px-5 py-2 w-100"
-          variant="primary"
-          type="submit"
-          disabled={isLoading}
-        >
+        <Button className="px-5 py-2 w-100" variant="primary" type="submit">
           Cadastrar
         </Button>
       </div>
@@ -162,7 +150,6 @@ const RegisterForm = ({ onCancel: handleContentChange }) => {
         className="px-5 py-2 w-100"
         variant="light"
         onClick={handleContentChange}
-        disabled={isLoading}
       >
         Cancelar
       </Button>

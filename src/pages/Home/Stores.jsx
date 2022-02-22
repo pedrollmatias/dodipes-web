@@ -1,25 +1,14 @@
 import StoreCard from "./StoreCard";
 
-const stores = [
-  {
-    id: 1,
-    name: "Restaurante Dona Vera",
-    username: "restaurante_dona_vera",
-    address: "Av. Alverenga Peixoto, 673 - Industrial",
-  },
-];
-
-const Stores = () => {
+const Stores = ({ stores }) => {
   return (
-    <>
-      <div className="row">
-        {stores.map((store) => (
-          <div key={store.id} className="col">
-            <StoreCard {...store} />
-          </div>
-        ))}
-      </div>
-    </>
+    <div className="row">
+      {stores.map((store) => (
+        <div key={store._id} className="col">
+          <StoreCard {...store} />
+        </div>
+      ))}
+    </div>
   );
 };
 

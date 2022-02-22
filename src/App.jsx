@@ -3,21 +3,18 @@ import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 
 import AppRoutes from "./components/Routes/Routes";
 
-import { AuthProvider } from "./contexts/auth-context";
-import { ApiErrorProvider } from "./contexts/api-error-context";
-import { LoadingProvider } from "./contexts/loading-context";
+import { AuthProvider } from "./contexts/auth";
+import { ApiErrorProvider } from "./contexts/api-error";
 
 const App = () => (
   <ErrorBoundary>
-    <LoadingProvider>
-      <Router>
-        <ApiErrorProvider>
-          <AuthProvider>
-            <AppRoutes />
-          </AuthProvider>
-        </ApiErrorProvider>
-      </Router>
-    </LoadingProvider>
+    <Router>
+      <ApiErrorProvider>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </ApiErrorProvider>
+    </Router>
   </ErrorBoundary>
 );
 

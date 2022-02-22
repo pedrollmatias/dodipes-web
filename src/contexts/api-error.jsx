@@ -37,12 +37,13 @@ export const ApiErrorProvider = ({ children }) => {
   };
 
   return (
-    <ApiErrorContext.Provider value={{ setError }}>
+    <ApiErrorContext.Provider value={{ error, setError }}>
       {renderContent()}
     </ApiErrorContext.Provider>
   );
 };
 
 export const ApiErrorContext = createContext({
+  error: undefined,
   setError: () => {},
 });

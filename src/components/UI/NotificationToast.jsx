@@ -1,7 +1,7 @@
 import ToastContainer from "react-bootstrap/ToastContainer";
 import Toast from "react-bootstrap/Toast";
 import { useContext, useState } from "react";
-import { ApiErrorContext } from "../../contexts/api-error-context";
+import { ApiErrorContext } from "../../contexts/api-error";
 import classes from "./NotificationToast.module.scss";
 
 const NotificationToast = ({

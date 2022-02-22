@@ -3,7 +3,6 @@ import { useState } from "react";
 import Container from "react-bootstrap/Container";
 
 import Stepper from "./Stepper";
-import PresentationStep from "./PresentationStep";
 import StoreInfoStep from "./StoreInfoStep";
 import VisualIdentityStep from "./VisualIdentityStep";
 import AddressStep from "./AddressStep";
@@ -32,10 +31,21 @@ const STEPS = {
     label: "Concluído!",
   },
 };
+const { STORE_INFO, ADDRESS, VISUAL_IDENTITY, PREFERENCES, FINISHED } = STEPS;
 
 const StoreCreationPage = () => {
-  const { STORE_INFO, ADDRESS, VISUAL_IDENTITY, PREFERENCES, FINISHED } = STEPS;
-  const [step, setStep] = useState(null);
+  // TODO: useReducer
+  const [step, setStep] = useState(STORE_INFO);
+
+  const [storeInfoFormDefaultValues, setStoreInfoFormDefaultValues] = useState({
+    name: "",
+    storename: "",
+  });
+
+  // const [addressFormDefaultValues, setAddressFormDefaultValues] = useState({
+  //   name: "",
+  //   storename: "",
+  // });
 
   const forwardStep = () => {
     setStep((step) => {
@@ -67,29 +77,28 @@ const StoreCreationPage = () => {
 
   return (
     <>
-      {!step && <PresentationStep forwardStep={forwardStep} />}
-      {step && (
-        <Container className="py-5 min-height-100">
-          <div className="mb-4">
-            <Stepper steps={STEPS} activeStep={step} />
-          </div>
-          {step.index === STORE_INFO.index && (
-            <StoreInfoStep forwardStep={forwardStep} backStep={backStep} />
-          )}
-          {step.index === ADDRESS.index && (
-            <AddressStep forwardStep={forwardStep} backStep={backStep} />
-          )}
-          {step.index === VISUAL_IDENTITY.index && (
-            <VisualIdentityStep forwardStep={forwardStep} backStep={backStep} />
-          )}
-          {step.index === PREFERENCES.index && (
-            <PreferencesStep forwardStep={forwardStep} backStep={backStep} />
-          )}
-          {step.index === FINISHED.index && (
-            <FinishedStep />
-          )}
-        </Container>
-      )}
+      <Container className="py-5 min-height-100">
+        <div className="mb-4">
+          <Stepper steps={STEPS} activeStep={step} />
+        </div>
+        {step.index === STORE_INFO.index && (
+          <StoreInfoStep
+            defaultValues={storeInfoFormDefaultValues}
+            setDefaultValues={setStoreInfoFormDefaultValues}
+            forwardStep={forwardStep}
+          />
+        )}
+        {step.index === ADDRESS.index && (
+          <AddressStep forwardStep={forwardStep} backStep={backStep} />
+        )}
+        {step.index === VISUAL_IDENTITY.index && (
+          <VisualIdentityStep forwardStep={forwardStep} backStep={backStep} />
+        )}
+        {step.index === PREFERENCES.index && (
+          <PreferencesStep forwardStep={forwardStep} backStep={backStep} />
+        )}
+        {step.index === FINISHED.index && <FinishedStep />}
+      </Container>
     </>
   );
 };

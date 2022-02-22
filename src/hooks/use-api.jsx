@@ -1,34 +1,38 @@
-import { useState, useContext } from "react";
-import { ApiErrorContext } from "../contexts/api-error-context";
-import { LoadingContext } from "../contexts/loading-context";
+import { useState, useContext, useCallback } from "react";
+import { ApiErrorContext } from "../contexts/api-error";
 
-export const useApi = (service) => {
-  const { setError } = useContext(ApiErrorContext);
-  const { setIsLoading } = useContext(LoadingContext);
-  const [httpRequest] = useState(service);
+export function useApi({ service }) {
+  const { error, setError } = useContext(ApiErrorContext);
+  const [result, setResult] = useState(undefined);
+  const [loading, setLoading] = useState(false);
 
-  return async (params) => {
-    setIsLoading(true);
+  const fetchData = useCallback(
+    async (params = {}) => {
+      setResult(undefined);
+      setError(undefined);
+      setLoading(true);
 
-    try {
-      const { data } = await httpRequest(params);
+      try {
+        const { data } = await service(params);
 
-      setIsLoading(false);
+        setResult(data);
+      } catch (error) {
+        const { status, statusText } = error.response;
+        const { message } = error.response?.data;
 
-      return data;
-    } catch (error) {
-      const { status, statusText } = error.response;
-      const { message } = error.response.data;
+        setError({
+          statusCode: status,
+          statusText,
+          message,
+        });
+      }
 
-      setError({
-        statusCode: status,
-        statusText,
-        message,
-      });
+      setLoading(false);
+    },
+    [service, setError]
+  );
 
-      setIsLoading(false);
+  const response = { result, loading, error };
 
-      throw error;
-    }
-  };
-};
+  return [response, fetchData];
+}
