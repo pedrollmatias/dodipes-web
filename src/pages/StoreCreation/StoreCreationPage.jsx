@@ -1,7 +1,5 @@
-import { useState } from "react";
-
+import { useState, useReducer } from "react";
 import Container from "react-bootstrap/Container";
-
 import Stepper from "./Stepper";
 import StoreInfoStep from "./StoreInfoStep";
 import VisualIdentityStep from "./VisualIdentityStep";
@@ -33,36 +31,11 @@ const STEPS = {
 };
 const { STORE_INFO, ADDRESS, VISUAL_IDENTITY, PREFERENCES, FINISHED } = STEPS;
 
-const StoreCreationPage = () => {
-  // TODO: useReducer
-  const [step, setStep] = useState(STORE_INFO);
+const reducer = (state, action) => {
+  const step = state;
 
-  const [storeInfoFormDefaultValues, setStoreInfoFormDefaultValues] = useState({
-    name: "",
-    storename: "",
-  });
-
-  // const [addressFormDefaultValues, setAddressFormDefaultValues] = useState({
-  //   name: "",
-  //   storename: "",
-  // });
-
-  const forwardStep = () => {
-    setStep((step) => {
-      const nextStepIndex = (step?.index ?? 0) + 1;
-      const lastStepIndex = FINISHED.index;
-      const currentStepIndex =
-        nextStepIndex > lastStepIndex ? lastStepIndex : nextStepIndex;
-      const stepKey = Object.keys(STEPS).find(
-        (stepKey) => STEPS[stepKey].index === currentStepIndex
-      );
-
-      return STEPS[stepKey];
-    });
-  };
-
-  const backStep = () => {
-    setStep((step) => {
+  switch (action.type) {
+    case "backward": {
       const previousStepIndex = (step?.index ?? 0) - 1;
       const fistStepIndex = STORE_INFO.index;
       const currentStepIndex =
@@ -72,8 +45,41 @@ const StoreCreationPage = () => {
       );
 
       return STEPS[stepKey];
-    });
-  };
+    }
+
+    case "forward": {
+      const nextStepIndex = (step?.index ?? 0) + 1;
+      const lastStepIndex = FINISHED.index;
+      const currentStepIndex =
+        nextStepIndex > lastStepIndex ? lastStepIndex : nextStepIndex;
+      const stepKey = Object.keys(STEPS).find(
+        (stepKey) => STEPS[stepKey].index === currentStepIndex
+      );
+
+      return STEPS[stepKey];
+    }
+
+    default:
+      throw new Error(`Tipo da ação inesperado ${action.type}`);
+  }
+};
+
+const StoreCreationPage = () => {
+  const [step, dispatch] = useReducer(reducer, STORE_INFO);
+  const [storeInfoFormDefaultValues, setStoreInfoFormDefaultValues] = useState({
+    name: "",
+    storename: "",
+  });
+
+  const [addressFormDefaultValues, setAddressFormDefaultValues] = useState({
+    city: "",
+    complement: "",
+    street: "",
+    neighborhood: "",
+    number: "",
+    state: "",
+    zipCode: "",
+  });
 
   return (
     <>
@@ -85,17 +91,21 @@ const StoreCreationPage = () => {
           <StoreInfoStep
             defaultValues={storeInfoFormDefaultValues}
             setDefaultValues={setStoreInfoFormDefaultValues}
-            forwardStep={forwardStep}
+            dispatch={dispatch}
           />
         )}
         {step.index === ADDRESS.index && (
-          <AddressStep forwardStep={forwardStep} backStep={backStep} />
+          <AddressStep
+            defaultValues={addressFormDefaultValues}
+            setDefaultValues={setAddressFormDefaultValues}
+            dispatch={dispatch}
+          />
         )}
         {step.index === VISUAL_IDENTITY.index && (
-          <VisualIdentityStep forwardStep={forwardStep} backStep={backStep} />
+          <VisualIdentityStep dispatch={dispatch} />
         )}
         {step.index === PREFERENCES.index && (
-          <PreferencesStep forwardStep={forwardStep} backStep={backStep} />
+          <PreferencesStep dispatch={dispatch} />
         )}
         {step.index === FINISHED.index && <FinishedStep />}
       </Container>

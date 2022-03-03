@@ -68,4 +68,9 @@ table tr td:last-child {
   width: 1px;
 }
 
+.input-group-text {
+  border: none !important;
+  background-color: $light-grey !important;
+}
+
 @import "~bootstrap/scss/bootstrap";

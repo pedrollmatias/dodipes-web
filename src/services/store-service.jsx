@@ -5,3 +5,6 @@ export const getStoresByUser = ({ userId }) =>
 
 export const checkStorenameAvailability = ({ storename }) =>
   privateApi.post(`/api/stores/storename-availability`, { storename });
+
+export const getAddressByZipCode = ({ zipCode }) =>
+privateApi.get(`/api/address/${zipCode}`);

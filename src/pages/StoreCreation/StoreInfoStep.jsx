@@ -1,21 +1,25 @@
 import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
 import Spinner from "react-bootstrap/Spinner";
 import { useForm, useFormState } from "react-hook-form";
 
 import { useApi } from "../../hooks/use-api";
 import { checkStorenameAvailability } from "../../services/store-service";
 
-const StoreInfoStep = ({ defaultValues, setDefaultValues, forwardStep }) => {
+const storenameRegex =
+  /^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)$/;
+
+const StoreInfoStep = ({ defaultValues, setDefaultValues, dispatch }) => {
   const [{ result, loading }, checkStorenameAvailabilityApiCall] = useApi({
     service: checkStorenameAvailability,
   });
   const [validated, setValidated] = useState(false);
 
   useEffect(() => {
-    result?.available ? forwardStep() : setValidated(false);
-  }, [forwardStep, result]);
+    result?.available ? dispatch({ type: "forward" }) : setValidated(false);
+  }, [dispatch, result]);
 
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
@@ -65,26 +69,36 @@ const StoreInfoStep = ({ defaultValues, setDefaultValues, forwardStep }) => {
           <Form.Label>
             <em>Storename</em> *
           </Form.Label>
-          <Form.Control
-            type="text"
-            {...register("storename", {
-              required: { value: true, message: "Storename obrigatório" },
-            })}
-            isInvalid={
-              (result && !result.available) ||
-              ((submitAttempt || touchedFields?.storename) && errors?.storename)
-            }
-            disabled={loading}
-          />
+          <InputGroup>
+            <InputGroup.Text>@</InputGroup.Text>
 
-          {result && !result.available && (
+            <Form.Control
+              type="text"
+              {...register("storename", {
+                required: { value: true, message: "Storename obrigatório" },
+                pattern: {
+                  value: storenameRegex,
+                  message:
+                    "Storename inválido. Apenas letras, números, . (ponto) e _ (underscore) são permitidos",
+                },
+              })}
+              isInvalid={
+                (result && !result.available) ||
+                ((submitAttempt || touchedFields?.storename) &&
+                  errors?.storename)
+              }
+              disabled={loading}
+            />
+
+            {result && !result.available && (
+              <Form.Control.Feedback type="invalid">
+                Storename indisponível
+              </Form.Control.Feedback>
+            )}
             <Form.Control.Feedback type="invalid">
-              Storename indisponível
+              {errors?.storename?.message}
             </Form.Control.Feedback>
-          )}
-          <Form.Control.Feedback type="invalid">
-            {errors?.storename?.message}
-          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
 
         <div className="d-flex justify-content-end mt-5">
