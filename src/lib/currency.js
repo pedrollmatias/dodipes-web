@@ -42,8 +42,6 @@ export const maskInputToCurrency = ({
     []
   );
 
-  console.log(indexPairs)
-
   const reverseIntegerPartArr = integerPartStr.split("").reverse();
   const integerPartWithThousandSeparator = indexPairs
     .reduce((acc, indexPair) => {

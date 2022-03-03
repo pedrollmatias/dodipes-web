@@ -1,13 +1,19 @@
+@import "../../../styles-variables.scss";
+
+$border-radius: 50%;
+
 .container--store-logo {
   position: relative;
   height: 300px;
   width: 300px;
+  border-radius: $border-radius;
+  background-color: $light-grey;
 
   .img--store-logo {
     height: 100%;
     width: 100%;
-    border-radius: 50%;
     object-fit: cover;
+    border-radius: $border-radius;
   }
 
   .container--btn-edit {

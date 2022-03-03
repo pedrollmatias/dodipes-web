@@ -32,8 +32,6 @@ const AddressStep = ({ defaultValues, setDefaultValues, dispatch }) => {
   } = useForm({ mode: "all", defaultValues });
   const { touchedFields } = useFormState({ control });
 
-  console.log(defaultValues);
-
   const handleOnChange = (event) => {
     const zipCode = event.target.value;
     const zipCodeNumber = zipCode
@@ -60,18 +58,18 @@ const AddressStep = ({ defaultValues, setDefaultValues, dispatch }) => {
 
   const onError = () => setSubmitAttempt(true);
 
-  const onSubmit = (formData) => {
-    setDefaultValues(formData);
-    setValidated(true);
-
-    dispatch({ type: "forward" });
-  };
-
   const handleBackward = () => {
     const partialFormData = getFormValues();
     setDefaultValues(partialFormData);
 
     dispatch({ type: "backward" });
+  };
+
+  const handleForward = (formData) => {
+    setDefaultValues(formData);
+    setValidated(true);
+
+    dispatch({ type: "forward" });
   };
 
   useEffect(() => {
@@ -91,7 +89,7 @@ const AddressStep = ({ defaultValues, setDefaultValues, dispatch }) => {
       <Form
         noValidate
         validated={validated}
-        onSubmit={handleSubmit(onSubmit, onError)}
+        onSubmit={handleSubmit(handleForward, onError)}
       >
         <div className="row">
           <div className="col-md-4">

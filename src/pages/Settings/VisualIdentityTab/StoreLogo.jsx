@@ -1,44 +1,57 @@
 import { useState } from "react";
 
 import { FiEdit } from "react-icons/fi";
-
+import { IoRestaurantOutline } from "react-icons/io5";
 import IconButton from "../../../components/UI/IconButton";
 import SectionTitle from "../../../components/UI/SectionTitle";
 
-import storeLogo from "../../../assets/store-logo.png";
-
 import classes from "./StoreLogo.module.scss";
-import EditStoreLogoModal from "./EditStoreLogoModal";
+import ImageEditorModal from "./ImageEditorModal";
 
-const StoreLogo = () => {
-  const [editStoreLogoModalShow, setEditStoreLogoModalShow] = useState(false);
+const StoreLogo = ({ image, setImage }) => {
+  const [imageEditorModalShow, setImageEditorModalShow] = useState(false);
 
-  const handleEditStoreLogoModalShow = () => setEditStoreLogoModalShow(true);
-  const handleEditStoreLogoModalHide = () => setEditStoreLogoModalShow(false);
+  const handleImageEditorModalShow = () => setImageEditorModalShow(true);
+  const handleImageEditorModalHide = () => setImageEditorModalShow(false);
 
   return (
     <>
       <div className={`${classes["container--store-logo"]} mb-4`}>
-        <img
-          className={`${classes["img--store-logo"]}`}
-          alt="Logo"
-          src={storeLogo}
-        />
+        {image ? (
+          <img
+            className={`${classes["img--store-logo"]}`}
+            alt="Logo"
+            src={image}
+          />
+        ) : (
+          <div className="d-flex justify-content-center align-items-center h-100">
+            <IoRestaurantOutline size={100} />
+          </div>
+        )}
 
         <div className={classes["container--btn-edit"]}>
-          <IconButton icon={FiEdit} variant="primary" size="lg" onClick={handleEditStoreLogoModalShow}/>
+          <IconButton
+            icon={FiEdit}
+            variant="primary"
+            size="lg"
+            onClick={handleImageEditorModalShow}
+          />
         </div>
       </div>
 
-      <SectionTitle className="mb-4">
-        Logotipo do estabelecimento
-      </SectionTitle>
+      <SectionTitle className="mb-4">Logotipo do estabelecimento</SectionTitle>
 
       <p className="text-center">
         Imagem que será exibida no cardápio e nas buscas no aplicativo
       </p>
 
-      <EditStoreLogoModal show={editStoreLogoModalShow} onHide={handleEditStoreLogoModalHide}/>
+      <ImageEditorModal
+        title="Selecionar imagem do logotipo"
+        show={imageEditorModalShow}
+        onHide={handleImageEditorModalHide}
+        image={image}
+        setImage={setImage}
+      />
     </>
   );
 };

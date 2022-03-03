@@ -1,12 +1,18 @@
+@import "../../../styles-variables.scss";
+
+$border-radius: 22px;
+
 .container--store-cover-photo {
   position: relative;
   height: 300px;
   width: 500px;
+  border-radius: $border-radius;
+  background-color: $light-grey;
 
   .img--store-cover-photo {
     height: 100%;
     width: 100%;
-    border-radius: 22px;
+    border-radius: $border-radius;
     object-fit: cover;
   }
 

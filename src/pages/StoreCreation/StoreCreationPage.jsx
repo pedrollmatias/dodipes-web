@@ -81,6 +81,12 @@ const StoreCreationPage = () => {
     zipCode: "",
   });
 
+  const [visualIdentityDefaultValues, setvisualIdentityDefaultValues] =
+    useState({
+      storeLogo: null,
+      coverPhoto: null,
+    });
+
   return (
     <>
       <Container className="py-5 min-height-100">
@@ -102,7 +108,11 @@ const StoreCreationPage = () => {
           />
         )}
         {step.index === VISUAL_IDENTITY.index && (
-          <VisualIdentityStep dispatch={dispatch} />
+          <VisualIdentityStep
+            defaultValues={visualIdentityDefaultValues}
+            setDefaultValues={setvisualIdentityDefaultValues}
+            dispatch={dispatch}
+          />
         )}
         {step.index === PREFERENCES.index && (
           <PreferencesStep dispatch={dispatch} />
