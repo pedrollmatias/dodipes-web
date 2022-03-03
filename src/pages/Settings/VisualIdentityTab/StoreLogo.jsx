@@ -39,7 +39,7 @@ const StoreLogo = ({ image, setImage }) => {
         </div>
       </div>
 
-      <SectionTitle className="mb-4">Logotipo do estabelecimento</SectionTitle>
+      <SectionTitle className="mb-4">Logotipo</SectionTitle>
 
       <p className="text-center">
         Imagem que será exibida no cardápio e nas buscas no aplicativo

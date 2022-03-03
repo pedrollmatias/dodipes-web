@@ -17,7 +17,7 @@ const StoreCoverPhoto = ({ image, setImage }) => {
       <div className={`${classes["container--store-cover-photo"]} mb-4`}>
         {image ? (
           <img
-            className={`${classes["img--store-logo"]}`}
+            className={`${classes["img--store-cover-photo"]}`}
             alt="Logo"
             src={image}
           />

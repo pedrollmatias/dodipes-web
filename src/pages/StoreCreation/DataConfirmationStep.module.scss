@@ -1,0 +1,46 @@
+@import "../../styles-variables.scss";
+
+$cover-photo-border-radius: 15px;
+$store-logo-border-radius: 50%;
+
+.container--store {
+  position: relative;
+  height: 350px;
+  width: 800px;
+  margin-bottom: 10rem;
+
+  .container--cover-photo {
+    height: 100%;
+    width: 100%;
+    border-radius: $cover-photo-border-radius;
+    background-color: $light-grey;
+
+    .img--cover-photo {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: $cover-photo-border-radius;
+    }
+  }
+
+  .container--store-data {
+    position: absolute;
+    bottom: -140px;
+    left: 0;
+
+    .container--store-logo {
+      height: 190px;
+      width: 190px;
+      border-radius: $store-logo-border-radius;
+      background-color: $light-grey;
+      border: 5px solid $white;
+
+      .img--store-logo {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: $store-logo-border-radius;
+      }
+    }
+  }
+}

@@ -4,8 +4,8 @@ import Stepper from "./Stepper";
 import StoreInfoStep from "./StoreInfoStep";
 import VisualIdentityStep from "./VisualIdentityStep";
 import AddressStep from "./AddressStep";
-import PreferencesStep from "./PreferencesStep";
 import FinishedStep from "./FinishedStep";
+import DataConfirmationStep from "./DataConfirmationStep";
 
 const STEPS = {
   STORE_INFO: {
@@ -20,16 +20,17 @@ const STEPS = {
     index: 3,
     label: "Identidade visual",
   },
-  PREFERENCES: {
+  DATA_CONFIRMATION: {
     index: 4,
-    label: "Preferências",
+    label: "Confirmação",
   },
   FINISHED: {
     index: 5,
     label: "Concluído!",
   },
 };
-const { STORE_INFO, ADDRESS, VISUAL_IDENTITY, PREFERENCES, FINISHED } = STEPS;
+const { STORE_INFO, ADDRESS, VISUAL_IDENTITY, DATA_CONFIRMATION, FINISHED } =
+  STEPS;
 
 const reducer = (state, action) => {
   const step = state;
@@ -114,8 +115,13 @@ const StoreCreationPage = () => {
             dispatch={dispatch}
           />
         )}
-        {step.index === PREFERENCES.index && (
-          <PreferencesStep dispatch={dispatch} />
+        {step.index === DATA_CONFIRMATION.index && (
+          <DataConfirmationStep
+            dispatch={dispatch}
+            storeInfo={storeInfoFormDefaultValues}
+            address={addressFormDefaultValues}
+            visualIdentity={visualIdentityDefaultValues}
+          />
         )}
         {step.index === FINISHED.index && <FinishedStep />}
       </Container>
