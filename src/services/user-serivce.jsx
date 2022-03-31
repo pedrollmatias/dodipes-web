@@ -7,10 +7,8 @@ export const authUser = ({ body, token }) => {
 };
 
 export const getUserByEmail = ({ email }) =>
-  privateApi.post("/api/users/email", {
-    email,
-  });
+  privateApi.get(`/api/users/email/${email}`);
 
-export const registerUser = () => {
-  return ({ body }) => publicApi.post("/api/user/registration", body);
+export const addUser = () => {
+  return ({ body }) => publicApi.post("/api/user", body);
 };

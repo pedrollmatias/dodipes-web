@@ -52,7 +52,6 @@ const HomePage = () => {
           <Stores stores={stores} />
         </div>
       )}
-
       {Boolean(!loading && stores && !stores.length) && (
         <StoreCreationSuggestion />
       )}

@@ -4,6 +4,9 @@ import { useApi } from "./use-api";
 import { ApiErrorContext } from "../contexts/api-error";
 
 export const useAuthentication = () => {
+  const accessTokenLocalStorage = localStorage.getItem("@dodipes:access-token");
+  const userLocalStorage = localStorage.getItem("@dodipes:user-data");
+
   const { setError } = useContext(ApiErrorContext);
   const [authResponse, authUserApiCall] = useApi({ service: authUser });
   const [userResponse, getUserByEmailApiCall] = useApi({
@@ -12,8 +15,8 @@ export const useAuthentication = () => {
 
   const [loading, setLoading] = useState(false);
   const [signInData, setSignInData] = useState();
-  const [accessToken, setAccessToken] = useState();
-  const [user, setUser] = useState();
+  const [accessToken, setAccessToken] = useState(accessTokenLocalStorage);
+  const [user, setUser] = useState(JSON.parse(userLocalStorage));
   const [shouldSignOut, setShouldSignOut] = useState(false);
 
   useEffect(() => {
@@ -25,6 +28,9 @@ export const useAuthentication = () => {
     );
 
     if (authResponseFailure || userResponseFailure || shouldSignOut) {
+      localStorage.removeItem("@dodipes:access-token");
+      localStorage.removeItem("@dodipes:user-data");
+
       setAccessToken(undefined);
       setUser(undefined);
       setSignInData(undefined);
@@ -65,6 +71,8 @@ export const useAuthentication = () => {
 
     if (shouldSetAccessToken) {
       const acessTokenData = authResponse.result.accessToken;
+
+      localStorage.setItem("@dodipes:access-token", acessTokenData);
       setAccessToken(acessTokenData);
     }
 
@@ -83,6 +91,10 @@ export const useAuthentication = () => {
     if (shouldSetUser) {
       setLoading(false);
 
+      localStorage.setItem(
+        "@dodipes:user-data",
+        JSON.stringify(userResponse.result)
+      );
       setUser(userResponse.result);
     }
   }, [
@@ -112,5 +124,5 @@ export const useAuthentication = () => {
     setSignInData(undefined);
   };
 
-  return { accessToken, user, loading, handleSignIn, handleSignOut };
+  return { user, loading, handleSignIn, handleSignOut };
 };

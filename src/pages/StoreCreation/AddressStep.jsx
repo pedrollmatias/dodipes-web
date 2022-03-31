@@ -45,7 +45,7 @@ const AddressStep = ({ defaultValues, setDefaultValues, dispatch }) => {
     const exactZipCodeLength = 8;
 
     if (zipCodeNumber.toString().length === exactZipCodeLength) {
-      getAddressByZipCodeApiCall({ zipCode });
+      getAddressByZipCodeApiCall({ zipCode: zipCodeNumber });
     } else {
       setFormValues("street", "");
       setFormValues("neighborhood", "");

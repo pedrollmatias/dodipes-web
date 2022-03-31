@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm, useFormState } from "react-hook-form";
 import { useApi } from "../../hooks/use-api";
-import { registerUser } from "../../services/user-serivce";
+import { addUser } from "../../services/user-serivce";
 import { AuthContext } from "../../contexts/auth";
 import { abort } from "../../lib/utils";
 
@@ -14,7 +14,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
 
 const RegisterForm = ({ onCancel: handleContentChange }) => {
   const { login } = useContext(AuthContext);
-  const registerUserApi = useApi(registerUser);
+  const addUserApi = useApi(addUser);
 
   const {
     watch,
@@ -43,7 +43,7 @@ const RegisterForm = ({ onCancel: handleContentChange }) => {
     };
 
     try {
-      await registerUserApi(body);
+      await addUserApi(body);
       await login({ body: { email, password } });
     } catch (error) {
       abort();

@@ -3,15 +3,16 @@ import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 
 import AppRoutes from "./components/Routes/Routes";
 
-import { AuthProvider } from "./contexts/auth";
-import { ApiErrorProvider } from "./contexts/api-error";
+import { AuthProvider, ApiErrorProvider, StoreProvider } from "./contexts";
 
 const App = () => (
   <ErrorBoundary>
     <Router>
       <ApiErrorProvider>
         <AuthProvider>
-          <AppRoutes />
+          <StoreProvider>
+            <AppRoutes />
+          </StoreProvider>
         </AuthProvider>
       </ApiErrorProvider>
     </Router>

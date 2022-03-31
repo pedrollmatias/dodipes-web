@@ -4,7 +4,10 @@ export const getStoresByUser = ({ userId }) =>
   privateApi.get(`/api/users/${userId}/stores`);
 
 export const checkStorenameAvailability = ({ storename }) =>
-  privateApi.post(`/api/stores/storename-availability`, { storename });
+  privateApi.get("/api/storenames/availability", { params: { storename } });
 
 export const getAddressByZipCode = ({ zipCode }) =>
-privateApi.get(`/api/address/${zipCode}`);
+  privateApi.get(`/api/addresses/${zipCode}`);
+
+export const addStore = ({ body, userId }) =>
+  privateApi.post(`/api/users/${userId}/stores`, body);

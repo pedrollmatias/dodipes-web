@@ -1,26 +1,9 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { useAuthentication } from "../hooks/use-authentication";
 
 export const AuthProvider = ({ children }) => {
   const [disableAuthSubmit, setDisableAuthSubmit] = useState(false);
-  const { accessToken, user, loading, handleSignIn, handleSignOut } =
-    useAuthentication();
-
-  useEffect(() => {
-    if (!accessToken) {
-      localStorage.removeItem("@dodipes:access-token");
-      localStorage.removeItem("@dodipes:user-data");
-    } else {
-      localStorage.setItem("@dodipes:access-token", accessToken);
-    }
-
-    if (!user) {
-      localStorage.removeItem("@dodipes:user-data");
-    } else {
-      const userStr = JSON.stringify(user);
-      localStorage.setItem("@dodipes:user-data", userStr);
-    }
-  }, [accessToken, user]);
+  const { user, loading, handleSignIn, handleSignOut } = useAuthentication();
 
   return (
     <AuthContext.Provider

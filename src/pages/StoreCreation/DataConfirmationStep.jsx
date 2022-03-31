@@ -1,8 +1,13 @@
+import { useContext, useEffect } from "react";
 import { IoRestaurantOutline } from "react-icons/io5";
 import { BiImage } from "react-icons/bi";
 import { MdOutlinePlace } from "react-icons/md";
 import Button from "react-bootstrap/Button";
+import { AuthContext } from "../../contexts";
 import classes from "./DataConfirmationStep.module.scss";
+import { useApi } from "../../hooks/use-api";
+import { addStore } from "../../services/store-service";
+import SectionTitle from "../../components/UI/SectionTitle";
 
 const DataConfirmationStep = ({
   storeInfo,
@@ -15,8 +20,43 @@ const DataConfirmationStep = ({
     address;
   const { storeLogo, coverPhoto } = visualIdentity;
 
+  const { user } = useContext(AuthContext);
+  const [{ result: addStoreResult, loading }, addStoreApiCall] = useApi({
+    service: addStore,
+  });
+
+  useEffect(() => {
+    if (addStoreResult) {
+      dispatch({ type: "forward" });
+    }
+  }, [addStoreResult, dispatch]);
+
+  const handleBackward = () => {
+    dispatch({ type: "backward" });
+  };
+
+  const handleSubmitStore = (event) => {
+    event.preventDefault();
+
+    const { _id } = user;
+    const storeData = {
+      name,
+      storename,
+      address,
+      logo: storeLogo,
+      coverPhoto,
+    };
+
+    addStoreApiCall({ body: storeData, userId: _id });
+  };
+
   return (
     <div className="py-5">
+      <div className="d-flex justify-content-center mb-5">
+        <SectionTitle className="mb-0">
+          Confirme os dados do estabelecimento
+        </SectionTitle>
+      </div>
       <div className="d-flex justify-content-center">
         <div className={classes["container--store"]}>
           <div className={classes["container--cover-photo"]}>
@@ -84,7 +124,8 @@ const DataConfirmationStep = ({
           <Button
             className="px-5"
             variant="light"
-            onClick={() => dispatch({ type: "backward" })}
+            onClick={handleBackward}
+            disabled={loading}
           >
             Voltar
           </Button>
@@ -92,7 +133,9 @@ const DataConfirmationStep = ({
         <Button
           className="px-5"
           variant="primary"
-          onClick={() => dispatch({ type: "forward" })}
+          onClick={handleSubmitStore}
+          disabled={loading}
+          type="submit"
         >
           Criar estabelecimento
         </Button>
