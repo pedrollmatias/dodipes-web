@@ -6,48 +6,58 @@ import Spinner from "react-bootstrap/Spinner";
 import { useForm, useFormState } from "react-hook-form";
 import { useApi } from "../../hooks/use-api";
 import { addCategory } from "../../services/category-service";
-import { useContext, useEffect } from "react";
+import {  useState, useContext, useEffect } from "react";
 import { StoreContext } from "../../contexts";
 
 const CategoryDetailsModal = ({
   show,
   onHide: handleHide,
   isEditing = false,
+  defaultValues,
 }) => {
   const { store } = useContext(StoreContext);
-  const [{ result: addCategoryResult, loading }, addCategoryApiCall] = useApi({
-    service: addCategory,
-  });
+  const [{ result: addCategoryResult, loading, error }, addCategoryApiCall] =
+    useApi({ service: addCategory });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm({
     mode: "all",
-    defaultValues: {
+    defaultValues: defaultValues || {
       name: "",
       active: false,
     },
   });
   const { touchedFields } = useFormState({ control });
+  const [submitAttempt, setSubmitAttempt] = useState(false);
 
-  const onSubmit = async (data) => {
+  const onError = () => setSubmitAttempt(true);
+
+  const onSubmit = (data) => {
     if (!isEditing) {
       addCategoryApiCall({ storeId: store._id, body: data });
     }
   };
 
+  const handleModalHide = () => {
+    reset();
+    handleHide();
+  };
+
   useEffect(() => {
-    if (addCategoryResult) {
-      handleHide();
+    if (!loading && (addCategoryResult || error)) {
+      reset();
+      handleHide({ refresh: true });
     }
-  }, [addCategoryResult, handleHide]);
+  }, [addCategoryResult, error, loading, reset, handleHide]);
 
   return (
-    <Modal show={show} onHide={handleHide} size="lg" centered>
-      <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+    <Modal show={show} onHide={handleModalHide} size="lg" centered>
+      <Form noValidate onSubmit={handleSubmit(onSubmit, onError)}>
         <Modal.Header closeButton>
           <Modal.Title>
             {isEditing ? "Editar" : "Adicionar"} categoria
@@ -70,7 +80,7 @@ const CategoryDetailsModal = ({
                   message: "Nome da categoria deve ter no máximo 30 caracteres",
                 },
               })}
-              isInvalid={touchedFields?.name && errors?.name}
+              isInvalid={(submitAttempt || touchedFields?.name) && errors?.name}
             />
 
             <Form.Control.Feedback type="invalid">
@@ -82,22 +92,23 @@ const CategoryDetailsModal = ({
             <SlideToggle
               label="Ativa"
               formRegistration={{ ...register("active") }}
-              isInvalid={touchedFields?.active && errors?.active}
+              isInvalid={
+                (submitAttempt || touchedFields?.active) && errors?.active
+              }
             />
           </Form.Group>
         </Modal.Body>
 
         <Modal.Footer>
-          <ModalActionButton variant="light" onClick={handleHide} type="button">
+          <ModalActionButton
+            variant="light"
+            onClick={handleModalHide}
+            type="button"
+          >
             Cancelar
           </ModalActionButton>
 
-          <ModalActionButton
-            variant="primary"
-            onClick={handleHide}
-            type="submit"
-            disabled={loading}
-          >
+          <ModalActionButton variant="primary" type="submit" disabled={loading}>
             Salvar
             {loading && (
               <Spinner

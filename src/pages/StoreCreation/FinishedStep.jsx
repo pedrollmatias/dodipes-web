@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import storeCreationConfirmationImg from "../../assets/store-creation-confirmation.jpg";
 import classes from "./FinishedStep.module.scss";
 
 const FinishedStep = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/store");
+  };
+
   return (
     <div className="d-flex flex-column justify-content-center align-items-center py-5">
       <div className="row align-items-center justify-content-center h-100">
@@ -21,11 +27,14 @@ const FinishedStep = () => {
             universo <strong>Dodipes!</strong>
           </h5>
 
-          <Link to="/store">
-            <Button className="px-5" variant="primary" size="lg">
-              Acessar estabelecimento
-            </Button>
-          </Link>
+          <Button
+            className="px-5"
+            variant="primary"
+            size="lg"
+            onClick={handleClick}
+          >
+            Acessar estabelecimento
+          </Button>
         </div>
       </div>
     </div>
