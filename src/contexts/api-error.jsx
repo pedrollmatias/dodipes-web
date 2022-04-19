@@ -20,9 +20,12 @@ export const ApiErrorProvider = ({ children }) => {
       return children;
     }
 
+    console.error(error?.message);
+    
     if (error?.statusCode === errorCodes.NOT_FOUND) {
       return <NotFoundPage />;
     }
+
 
     return (
       <>

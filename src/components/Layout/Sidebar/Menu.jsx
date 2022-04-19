@@ -10,11 +10,11 @@ const menu = [
     link: "dashboard",
     icon: FiGrid,
   },
-  {
-    label: "Pedidos",
-    link: "orders",
-    icon: FiTrello,
-  },
+  // {
+  //   label: "Pedidos",
+  //   link: "orders",
+  //   icon: FiTrello,
+  // },
   {
     label: "Configurações",
     link: "settings",
@@ -25,21 +25,21 @@ const menu = [
     link: "menu",
     icon: FiMap,
   },
-  {
-    label: "Mesas & QR Codes",
-    link: "tables-qrcodes",
-    icon: IoQrCodeOutline,
-  },
+  // {
+  //   label: "Mesas & QR Codes",
+  //   link: "tables-qrcodes",
+  //   icon: IoQrCodeOutline,
+  // },
   {
     label: "Usuários",
     link: "users",
     icon: FiUsers,
   },
-  {
-    label: "Painel Token",
-    link: "token-panel",
-    icon: MdDesktopWindows,
-  },
+  // {
+  //   label: "Painel Token",
+  //   link: "token-panel",
+  //   icon: MdDesktopWindows,
+  // },
 ];
 
 const Menu = () => {

@@ -9,7 +9,7 @@ export function useApi({ service }) {
   const fetchData = useCallback(
     async (params = {}) => {
       setResult(undefined);
-      setError(undefined);
+      setError(null);
       setLoading(true);
 
       try {
@@ -18,7 +18,7 @@ export function useApi({ service }) {
         setResult(data);
       } catch (error) {
         const { status, statusText } = error.response;
-        const { message } = error.response?.data;
+        const message = error.response?.data;
 
         setError({
           statusCode: status,

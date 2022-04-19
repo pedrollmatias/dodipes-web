@@ -28,7 +28,7 @@ const categoryItems = [
   },
 ];
 
-const Category = ({ name }) => {
+const Category = ({ categories, category }) => {
   const [categoryDetailsModalShow, setCategoryDetailsModalShow] =
     useState(false);
 
@@ -81,7 +81,13 @@ const Category = ({ name }) => {
         ))}
       </div>
 
-      <AddItemModal show={addItemModalShow} onHide={handleAddItemModalHide} />
+      <AddItemModal
+        show={addItemModalShow}
+        onHide={handleAddItemModalHide}
+        isEditing={false}
+        defaultValues={{ category }}
+        categories={categories}
+      />
       <CategoryDetailsModal
         show={categoryDetailsModalShow}
         onHide={handleCategoryDetailsModalHide}

@@ -14,8 +14,9 @@ import { useCallback } from "react";
 const MenuPage = () => {
   const { store } = useContext(StoreContext);
   const [{ result: categories, loading }, getStoreCategoriesWithItemsApiCall] =
-    useApi({ service: getStoreCategoriesWithItems });
-
+  useApi({ service: getStoreCategoriesWithItems });
+  console.log(categories)
+  
   useEffect(() => {
     if (store?._id) {
       getStoreCategoriesWithItemsApiCall({ storeId: store._id });
