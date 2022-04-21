@@ -10,18 +10,13 @@ import { StoreContext } from "../../contexts";
 import { getStoreCategoriesWithItems } from "../../services/category-service";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 import { useCallback } from "react";
+import { MenuContext, MenuProvider } from "../../contexts/menu";
 
-const MenuPage = () => {
+const MenuPageWithContext = () => {
+  const { refresh } = useContext(MenuContext);
   const { store } = useContext(StoreContext);
   const [{ result: categories, loading }, getStoreCategoriesWithItemsApiCall] =
-  useApi({ service: getStoreCategoriesWithItems });
-  console.log(categories)
-  
-  useEffect(() => {
-    if (store?._id) {
-      getStoreCategoriesWithItemsApiCall({ storeId: store._id });
-    }
-  }, [getStoreCategoriesWithItemsApiCall, store?._id]);
+    useApi({ service: getStoreCategoriesWithItems });
 
   const [categoryDetailsModalShow, setCategoryDetailsModalShow] =
     useState(false);
@@ -39,6 +34,12 @@ const MenuPage = () => {
     },
     [getStoreCategoriesWithItemsApiCall, store?._id]
   );
+
+  useEffect(() => {
+    if (store?._id) {
+      getStoreCategoriesWithItemsApiCall({ storeId: store._id });
+    }
+  }, [getStoreCategoriesWithItemsApiCall, store?._id, refresh]);
 
   return (
     <Container className="py-5 min-height-100">
@@ -70,5 +71,11 @@ const MenuPage = () => {
     </Container>
   );
 };
+
+const MenuPage = () => (
+  <MenuProvider>
+    <MenuPageWithContext />
+  </MenuProvider>
+);
 
 export default MenuPage;

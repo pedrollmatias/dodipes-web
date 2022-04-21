@@ -43,8 +43,10 @@ const AddressStep = ({ defaultValues, setDefaultValues, dispatch }) => {
     triggerFomrValidation("zipCode");
 
     const exactZipCodeLength = 8;
+    const isValidZipCodeLength =
+      zipCodeNumber.toString().length === exactZipCodeLength;
 
-    if (zipCodeNumber.toString().length === exactZipCodeLength) {
+    if (isValidZipCodeLength) {
       getAddressByZipCodeApiCall({ zipCode: zipCodeNumber });
     } else {
       setFormValues("street", "");
@@ -73,7 +75,7 @@ const AddressStep = ({ defaultValues, setDefaultValues, dispatch }) => {
   };
 
   useEffect(() => {
-    if (zipCodeAddressResult) {
+    if (!loading && zipCodeAddressResult) {
       const { street, neighborhood, city, state } = zipCodeAddressResult;
       setFormValues("street", street);
       setFormValues("neighborhood", neighborhood);
@@ -82,7 +84,7 @@ const AddressStep = ({ defaultValues, setDefaultValues, dispatch }) => {
 
       triggerFomrValidation();
     }
-  }, [setFormValues, triggerFomrValidation, zipCodeAddressResult]);
+  }, [loading, setFormValues, triggerFomrValidation, zipCodeAddressResult]);
 
   return (
     <div className="py-5">
@@ -119,27 +121,6 @@ const AddressStep = ({ defaultValues, setDefaultValues, dispatch }) => {
                     (submitAttempt || touchedFields?.zipCode) && errors?.zipCode
                   }
                 />
-                {/* <Form.Control
-                  type="text"
-                  as={NumberFormat}
-                  className="form-control"
-                  format="#####-###"
-                  mask="_"
-                  {...register("zipCode", {
-                    required: {
-                      value: true,
-                      message: "CEP obrigatório",
-                    },
-                    minLength: {
-                      value: 8,
-                      message: "CEP deve ter 8 dígitos",
-                    },
-                  })}
-                  onChange={handleOnChange}
-                  isInvalid={
-                    (submitAttempt || touchedFields?.zipCode) && errors?.zipCode
-                  }
-                /> */}
                 <Form.Control.Feedback type="invalid">
                   {errors?.zipCode?.message}
                 </Form.Control.Feedback>

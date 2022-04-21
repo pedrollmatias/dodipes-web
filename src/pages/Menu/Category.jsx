@@ -1,34 +1,13 @@
 import { useState } from "react";
-
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { MdAdd } from "react-icons/md";
-
 import ItemCard from "./ItemCard";
 import AddItemModal from "./AddItemModal";
 import CategoryDetailsModal from "./CategoryDetailsModal";
-
 import IconLabelButton from "../../components/UI/IconLabelButton";
 
-const categoryItems = [
-  {
-    id: 1,
-    name: "Filé com Fritas",
-    description: "300g de picanha maturada e 500g de fritas",
-    img: "aaa",
-    active: true,
-    price: 7990,
-  },
-  {
-    id: 2,
-    name: "Filé com Fritas",
-    description: "300g de picanha maturada e 500g de fritas",
-    img: "aaa",
-    active: true,
-    price: 7990,
-  },
-];
-
 const Category = ({ categories, category }) => {
+  const { items } = category;
   const [categoryDetailsModalShow, setCategoryDetailsModalShow] =
     useState(false);
 
@@ -73,10 +52,16 @@ const Category = ({ categories, category }) => {
         />
       </div>
 
-      <div className="mb-3">
-        {categoryItems.map((categoryItem) => (
-          <div key={categoryItem.id} className="mb-3">
-            <ItemCard {...categoryItem} />
+      <div className="my-5">
+        {!items?.length && (
+          <span className="d-flex justify-content-center">
+            Nenhum item encontrado
+          </span>
+        )}
+
+        {(items || []).map((item) => (
+          <div key={item._id} className="mb-3">
+            <ItemCard {...item} />
           </div>
         ))}
       </div>

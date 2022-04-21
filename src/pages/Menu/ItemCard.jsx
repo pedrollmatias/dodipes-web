@@ -2,19 +2,15 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
-
-import itemImg from "../../assets/file-fritas.jpg";
-
 import { numberToCurrency } from "../../lib/currency";
-
 import SlideToggle from "../../components/UI/SlideToggle";
 import IconButton from "../../components/UI/IconButton";
 
 import classes from "./ItemCard.module.scss";
 
-const ItemImg = () => {
+const ItemImg = ({ img }) => {
   return (
-    <img className={`${classes["img--item"]} me-3`} alt="Prato" src={itemImg} />
+    <img className={`${classes["img--item"]} me-3`} alt="Food" src={img} />
   );
 };
 
@@ -30,10 +26,10 @@ const ItemInfo = ({ name, description }) => {
   );
 };
 
-const ItemActive = () => {
+const ItemActive = ({ active }) => {
   return (
     <Form.Group className="mb-3" controlId="active">
-      <SlideToggle label="Ativo" />
+      <SlideToggle label="Ativo" checked={active} />
     </Form.Group>
   );
 };
@@ -57,21 +53,21 @@ const ItemActions = () => {
   );
 };
 
-const ItemCard = ({ name, description, img, active, price }) => {
+const ItemCard = ({ name, description, media, active, price }) => {
   return (
     <Card>
       <div className="row align-items-center">
         <div className="col-md-3">
-          <ItemImg />
+          <ItemImg img={media} />
         </div>
         <div className="col-md-3 py-4">
           <ItemInfo name={name} description={description} />
         </div>
         <div className="col-md-2 d-flex justify-content-center py-4">
-          <ItemActive />
+          <ItemActive active={active} />
         </div>
         <div className="col-md-2 d-flex justify-content-center py-4">
-          <ItemPrice price={7900} />
+          <ItemPrice price={price} />
         </div>
         <div className="col-md-2 d-flex justify-content-end py-4 pe-5">
           <ItemActions />

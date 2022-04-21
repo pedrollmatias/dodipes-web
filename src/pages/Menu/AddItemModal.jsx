@@ -1,15 +1,16 @@
+import { useState, useContext, useEffect, useCallback } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import AvatarEditor from "react-avatar-editor";
-
 import ModalActionButton from "../../components/UI/ModalActionButton";
 import SlideToggle from "../../components/UI/SlideToggle";
 import FileUploaderButton from "../../components/UI/FileUploaderButton";
 import { useApi } from "../../hooks/use-api";
+import { useToast } from "../../hooks/use-toast";
 import { addItem } from "../../services/item-service";
-import { useState, useContext, useEffect } from "react";
 import { useForm, useFormState } from "react-hook-form";
-import { AuthContext, StoreContext } from "../../contexts";
+import { StoreContext } from "../../contexts";
+import { MenuContext } from "../../contexts/menu";
 
 const AddItemModal = ({
   show,
@@ -19,6 +20,8 @@ const AddItemModal = ({
   categories,
 }) => {
   const { store } = useContext(StoreContext);
+  const { triggerRefresh } = useContext(MenuContext);
+
   const [{ result, loading, error }, addItemApiCall] = useApi({
     service: addItem,
   });
@@ -27,7 +30,6 @@ const AddItemModal = ({
   const [file, setFile] = useState();
   const [imageEditorScale, setImageEditorScale] = useState(1);
   const [editorRef, setEditorRef] = useState(null);
-  const [media, setMedia] = useState();
 
   const initialFormValues = isEditing
     ? {
@@ -37,7 +39,7 @@ const AddItemModal = ({
         price: defaultValues.price || "",
       }
     : {
-        categoryId: defaultValues.category?._id,
+        categoryId: defaultValues.category?._id || "",
         active: true,
         name: "",
         price: "",
@@ -57,21 +59,13 @@ const AddItemModal = ({
 
   const onSubmit = (formData) => {
     setValidated(true);
-
-    let mediaValue;
-
-    if (editorRef) {
-      mediaValue = editorRef.getImageScaledToCanvas().toDataURL();
-
-      setMedia(mediaValue);
-    }
-
-    const body = { ...formData, media: mediaValue };
-
     addItemApiCall({
-      storeId: store?._id,
+      storeId: store._id,
       categoryId: getValues("categoryId"),
-      body,
+      body: {
+        ...formData,
+        media: editorRef?.getImageScaledToCanvas()?.toDataURL(),
+      },
     });
   };
 
@@ -85,20 +79,21 @@ const AddItemModal = ({
     setFile(file);
   };
 
-  const handleModalHide = () => {
+  const handleDialogHide = useCallback(() => {
+    setFile(undefined);
     reset();
     handleHide();
-  };
+  }, [handleHide, reset]);
 
   useEffect(() => {
-    if (!loading && (result || error)) {
-      reset();
-      handleHide();
+    if (!loading && result) {
+      handleDialogHide();
+      triggerRefresh();
     }
-  }, [error, handleHide, loading, reset, result]);
+  }, [error, loading, handleDialogHide, result, triggerRefresh]);
 
   return (
-    <Modal show={show} onHide={handleModalHide} size="xl" centered>
+    <Modal show={show} onHide={handleDialogHide} size="xl" centered>
       <Form
         noValidate
         validated={validated}
@@ -226,7 +221,7 @@ const AddItemModal = ({
         </Modal.Body>
 
         <Modal.Footer>
-          <ModalActionButton variant="light" onClick={handleHide} type="button">
+          <ModalActionButton variant="light" onClick={handleDialogHide} type="button">
             Cancelar
           </ModalActionButton>
 

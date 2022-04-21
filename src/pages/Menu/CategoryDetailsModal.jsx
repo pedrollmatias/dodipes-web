@@ -6,8 +6,9 @@ import Spinner from "react-bootstrap/Spinner";
 import { useForm, useFormState } from "react-hook-form";
 import { useApi } from "../../hooks/use-api";
 import { addCategory } from "../../services/category-service";
-import {  useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import { StoreContext } from "../../contexts";
+import { MenuContext } from "../../contexts/menu";
 
 const CategoryDetailsModal = ({
   show,
@@ -16,8 +17,11 @@ const CategoryDetailsModal = ({
   defaultValues,
 }) => {
   const { store } = useContext(StoreContext);
-  const [{ result: addCategoryResult, loading, error }, addCategoryApiCall] =
-    useApi({ service: addCategory });
+  const { triggerRefresh } = useContext(MenuContext);
+
+  const [{ result: addCategoryResult, loading }, addCategoryApiCall] = useApi({
+    service: addCategory,
+  });
 
   const {
     register,
@@ -27,10 +31,7 @@ const CategoryDetailsModal = ({
     reset,
   } = useForm({
     mode: "all",
-    defaultValues: defaultValues || {
-      name: "",
-      active: false,
-    },
+    defaultValues: defaultValues || { name: "", active: false },
   });
   const { touchedFields } = useFormState({ control });
   const [submitAttempt, setSubmitAttempt] = useState(false);
@@ -38,22 +39,20 @@ const CategoryDetailsModal = ({
   const onError = () => setSubmitAttempt(true);
 
   const onSubmit = (data) => {
-    if (!isEditing) {
-      addCategoryApiCall({ storeId: store._id, body: data });
-    }
+    addCategoryApiCall({ storeId: store._id, body: data });
   };
 
-  const handleModalHide = () => {
+  const handleModalHide = useCallback(() => {
     reset();
     handleHide();
-  };
+  }, [handleHide, reset]);
 
   useEffect(() => {
-    if (!loading && (addCategoryResult || error)) {
-      reset();
-      handleHide({ refresh: true });
+    if (!loading && addCategoryResult) {
+      handleModalHide();
+      triggerRefresh();
     }
-  }, [addCategoryResult, error, loading, reset, handleHide]);
+  }, [addCategoryResult, handleModalHide, loading, triggerRefresh]);
 
   return (
     <Modal show={show} onHide={handleModalHide} size="lg" centered>
