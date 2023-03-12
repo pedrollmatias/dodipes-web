@@ -10,19 +10,13 @@ const Category = ({ categories, category }) => {
   const { items } = category;
   const [categoryDetailsModalShow, setCategoryDetailsModalShow] =
     useState(false);
-
   const handleCategoryDetailsModalShow = () =>
     setCategoryDetailsModalShow(true);
   const handleCategoryDetailsModalHide = () =>
     setCategoryDetailsModalShow(false);
 
-  const [isEditingItem, setIsEditingItem] = useState(false);
   const [addItemModalShow, setAddItemModalShow] = useState(false);
-
-  const handleAddItemModalShow = (isInterval = false) => {
-    setAddItemModalShow(true);
-    setIsEditingItem(isInterval);
-  };
+  const handleAddItemModalShow = () => setAddItemModalShow(true);
   const handleAddItemModalHide = () => setAddItemModalShow(false);
 
   return (
@@ -61,7 +55,7 @@ const Category = ({ categories, category }) => {
 
         {(items || []).map((item) => (
           <div key={item._id} className="mb-3">
-            <ItemCard {...item} />
+            <ItemCard {...item} category={category} categories={categories} />
           </div>
         ))}
       </div>

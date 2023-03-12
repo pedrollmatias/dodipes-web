@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import { numberToCurrency } from "../../lib/currency";
 import SlideToggle from "../../components/UI/SlideToggle";
 import IconButton from "../../components/UI/IconButton";
-
 import classes from "./ItemCard.module.scss";
+import AddItemModal from "./AddItemModal";
 
 const ItemImg = ({ img }) => {
   return (
@@ -42,38 +42,60 @@ const ItemPrice = ({ price }) => {
   );
 };
 
-const ItemActions = () => {
+const ItemActions = ({ handleModalShow }) => {
   return (
     <div className="d-flex align-items-center">
       <div className="me-2">
-        <IconButton icon={FiEdit} size="sm" />
+        <IconButton icon={FiEdit} size="sm" onClick={handleModalShow} />
       </div>
       <IconButton icon={FiTrash2} size="sm" />
     </div>
   );
 };
 
-const ItemCard = ({ name, description, media, active, price }) => {
+const ItemCard = ({
+  category,
+  categories,
+  name,
+  description,
+  media,
+  active,
+  price,
+}) => {
+  const [addItemModalShow, setAddItemModalShow] = useState(false);
+  const handleAddItemModalShow = () => setAddItemModalShow(true);
+  const handleAddItemModalHide = () => setAddItemModalShow(false);
+
   return (
-    <Card>
-      <div className="row align-items-center">
-        <div className="col-md-3">
-          <ItemImg img={media} />
+    <>
+      <Card>
+        <div className="row align-items-center">
+          <div className="col-md-3">
+            <ItemImg img={media} />
+          </div>
+          <div className="col-md-3 py-4">
+            <ItemInfo name={name} description={description} />
+          </div>
+          <div className="col-md-2 d-flex justify-content-center py-4">
+            <ItemActive active={active} />
+          </div>
+          <div className="col-md-2 d-flex justify-content-center py-4">
+            <ItemPrice price={price} />
+          </div>
+          <div className="col-md-2 d-flex justify-content-end py-4 pe-5">
+            <ItemActions handleModalShow={handleAddItemModalShow} />
+          </div>
         </div>
-        <div className="col-md-3 py-4">
-          <ItemInfo name={name} description={description} />
-        </div>
-        <div className="col-md-2 d-flex justify-content-center py-4">
-          <ItemActive active={active} />
-        </div>
-        <div className="col-md-2 d-flex justify-content-center py-4">
-          <ItemPrice price={price} />
-        </div>
-        <div className="col-md-2 d-flex justify-content-end py-4 pe-5">
-          <ItemActions />
-        </div>
-      </div>
-    </Card>
+      </Card>
+
+      <AddItemModal
+        show={addItemModalShow}
+        onHide={handleAddItemModalHide}
+        isEditing={true}
+        defaultValues={{ category }}
+        categories={categories}
+      />
+    </>
   );
 };
 

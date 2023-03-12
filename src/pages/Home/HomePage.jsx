@@ -31,8 +31,6 @@ const HomePage = () => {
     getStoresByUserApiCall({ userId });
   }, [getStoresByUserApiCall, userId]);
 
-  console.log(stores)
-
   return (
     <Container
       className={`${

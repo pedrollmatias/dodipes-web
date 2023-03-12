@@ -6,11 +6,14 @@ import ModalActionButton from "../../components/UI/ModalActionButton";
 import SlideToggle from "../../components/UI/SlideToggle";
 import FileUploaderButton from "../../components/UI/FileUploaderButton";
 import { useApi } from "../../hooks/use-api";
-import { useToast } from "../../hooks/use-toast";
 import { addItem } from "../../services/item-service";
 import { useForm, useFormState } from "react-hook-form";
 import { StoreContext } from "../../contexts";
 import { MenuContext } from "../../contexts/menu";
+import classes from "./AddItemModal.module.scss";
+import { BiImage } from "react-icons/bi";
+import { FiTrash2 } from "react-icons/fi";
+import IconButton from "../../components/UI/IconButton";
 
 const AddItemModal = ({
   show,
@@ -34,7 +37,6 @@ const AddItemModal = ({
   const initialFormValues = isEditing
     ? {
         categoryId: defaultValues.category?._id || "",
-        active: defaultValues.active || true,
         name: defaultValues.name || "",
         price: defaultValues.price || "",
       }
@@ -92,6 +94,11 @@ const AddItemModal = ({
     }
   }, [error, loading, handleDialogHide, result, triggerRefresh]);
 
+  const handleRemoveImage = () => {
+    setFile(undefined);
+    setEditorRef(undefined);
+  };
+
   return (
     <Modal show={show} onHide={handleDialogHide} size="xl" centered>
       <Form
@@ -115,33 +122,52 @@ const AddItemModal = ({
                 />
               </div>
 
-              {file && (
-                <>
-                  <div className="d-flex justify-content-center mb-2">
-                    <AvatarEditor
-                      width={480}
-                      height={320}
-                      border={25}
-                      borderRadius={15}
-                      ref={handleEditorRef}
-                      image={file}
-                      color={[255, 255, 255, 0.6]}
-                      scale={imageEditorScale}
-                    />
+              <div className="my-4 w-100">
+                {!file && (
+                  <div
+                    className={`${classes["no-image--container"]} d-flex flex-column justify-content-center align-items-center`}
+                  >
+                    <BiImage size={100} />
+                    <span>Sem imagem</span>
                   </div>
+                )}
 
-                  <div className="d-flex">
-                    <span className="me-4">Zoom</span>
-                    <Form.Range
-                      min={1}
-                      max={2}
-                      step={0.1}
-                      value={imageEditorScale}
-                      onChange={handleImageEditorScale}
-                    />
-                  </div>
-                </>
-              )}
+                {file && (
+                  <>
+                    <div className="d-flex justify-content-center mb-4">
+                      <AvatarEditor
+                        width={480}
+                        height={320}
+                        border={25}
+                        borderRadius={15}
+                        ref={handleEditorRef}
+                        image={file}
+                        color={[255, 255, 255, 0.6]}
+                        scale={imageEditorScale}
+                      />
+                    </div>
+
+                    <div className="d-flex justify-content-center align-items-center">
+                      <div className="d-flex me-4">
+                        <span className="me-4">Zoom</span>
+                        <Form.Range
+                          min={1}
+                          max={2}
+                          step={0.1}
+                          value={imageEditorScale}
+                          onChange={handleImageEditorScale}
+                        />
+                      </div>
+
+                      <IconButton
+                        icon={FiTrash2}
+                        size="sm"
+                        onClick={handleRemoveImage}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
 
             <div className="col-md-6 col-sm-12">
@@ -206,22 +232,28 @@ const AddItemModal = ({
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="active">
-                <SlideToggle
-                  label="Ativo"
-                  checked={getValues("active")}
-                  formRegistration={{ ...register("active") }}
-                  isInvalid={
-                    (submitAttempt || touchedFields?.active) && errors?.active
-                  }
-                />
-              </Form.Group>
+              {!isEditing && (
+                <Form.Group className="mb-3" controlId="active">
+                  <SlideToggle
+                    label="Ativo"
+                    checked={getValues("active")}
+                    formRegistration={{ ...register("active") }}
+                    isInvalid={
+                      (submitAttempt || touchedFields?.active) && errors?.active
+                    }
+                  />
+                </Form.Group>
+              )}
             </div>
           </div>
         </Modal.Body>
 
         <Modal.Footer>
-          <ModalActionButton variant="light" onClick={handleDialogHide} type="button">
+          <ModalActionButton
+            variant="light"
+            onClick={handleDialogHide}
+            type="button"
+          >
             Cancelar
           </ModalActionButton>
 
